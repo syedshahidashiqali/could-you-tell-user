@@ -4,8 +4,8 @@ export let image_url;
 const PORT = 5153;
 
 if (window.location.hostname == "localhost") {
-  connection_string = `https://localhost:${PORT}/api/v1`;
-  image_url = `https://localhost:${PORT}/`;
+  connection_string = `http://localhost:${PORT}/api/v1`;
+  image_url = `http://localhost:${PORT}/`;
 } else {
   connection_string = `https://dev74.onlinetestingserver.com:${PORT}/api/v1`;
   image_url = `https://dev74.onlinetestingserver.com:${PORT}/`;

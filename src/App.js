@@ -15,13 +15,16 @@ function App() {
   const {user} = useSelector(state => state);
 
   useEffect(() => {
+    console.log(getAccessToken());
       if(!user && getAccessToken()){
-        return (async () => {
+        console.log('asasdasd',user);
+        (async () => {
           let { user }  = await getUser();
           dispatch(setAuthStatus(true));
           dispatch(setAuthUser(user));
-        });
+        })();
       }
+      
       
     }, []);
   return (
