@@ -1,24 +1,35 @@
 import logo from './logo.svg';
 import './App.css';
+import Router from './routes/router';
+import Navbar from './Layouts/Navbar';
+import Footer from './Layouts/Footer';
+import { useDispatch, useSelector, useStore } from 'react-redux';
+import { getAccessToken } from './Util/helpers';
+import { getUser } from './Services/Auth';
+import { useEffect } from 'react';
+import { setAuthStatus, setAuthUser } from './store/actions';
+
 
 function App() {
+  const dispatch = useDispatch(); 
+  const {user} = useSelector(state => state);
+
+  useEffect(() => {
+      if(!user && getAccessToken()){
+        return (async () => {
+          let { user }  = await getUser();
+          dispatch(setAuthStatus(true));
+          dispatch(setAuthUser(user));
+        });
+      }
+      
+    }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Navbar />
+    <Router />
+    <Footer />
+    </>
   );
 }
 
