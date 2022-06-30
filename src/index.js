@@ -19,7 +19,7 @@ const store = configureStore({
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router key={window.location.href} basename='/'>
+      <Router key={window.location.href} basename='/could-you-tell/user'>
         <App />
         <ToastContainer
           position="top-center"

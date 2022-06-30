@@ -2,6 +2,7 @@
   "name": "could-you-tell-user",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dev74.onlinetestingserver.com/could-you-tell/user",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
     "@testing-library/jest-dom": "^5.16.4",
