@@ -1,6 +1,9 @@
+import { reverse } from 'named-urls';
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
-import { eventCategory } from '../../Services/Categories';
+import { useLocation, useMatch, useNavigate, useParams, createSearchParams } from 'react-router-dom';
+import Validator from 'validatorjs';
+import routes from '../../routes/routes';
+import { eventCategory, storeEvent } from '../../Services/Categories';
 
 export default function Booking() {
     let { id } = useParams();
@@ -9,11 +12,29 @@ export default function Booking() {
     
     let form = useRef({
         name : null,
+        date : null,
+        time : null,
+        guest_of_honor : null,
         
     });
 
-    const submit = useCallback((e)=>{
+    const submit = useCallback(async (e)=>{
         e.preventDefault();
+        let validator = new Validator(form.current,{
+
+             name : 'required',
+             date : 'required',
+             time : 'required',
+             guest_of_honor : 'required',
+        });
+
+        setValidation(validator);
+        if(validator.fails()) return;
+        
+        navigate({
+            pathname : reverse(routes.hostEventsPay,{id}),
+            search : createSearchParams({...form.current}).toString(),
+        });
         
     });
     const [category, setCategory] = useState({});
@@ -22,7 +43,7 @@ export default function Booking() {
         setCategory(data);
     });
     useEffect(()=>{
-        return ()=> fetch(id);
+         (async ()=> await fetch(id))();
     },[id]);
     return (
         <section className="virtual-events text-white">
@@ -37,7 +58,7 @@ export default function Booking() {
                                     {/* Event Type */}
                                     <div className="host-info ms-2">
                                         <h3 className="grey-text">Event Type</h3>
-                                        <p>Birthday</p>
+                                        <p>{category?.name}</p>
                                     </div>
                                 </div>
                                 <div className="col-md-4 col-sm-6 mb-4">
@@ -52,22 +73,26 @@ export default function Booking() {
                                 {/* Event Name* */}
                                 <div className="form-group mb-4">
                                     <label className="ps-sm-4 ps-2" htmlFor="eventName">Event Name <span className="red">*</span></label>
-                                    <input type="text" className="form-control mt-2 form-field" id="eventName" placeholder="Enter Event Name" />
+                                    <input type="text" value={form.name} onChange={(e)=> form.current.name = e.target.value} className="form-control mt-2 form-field" id="eventName" placeholder="Enter Event Name" />
+                                    <span>{validation?.errors?.first('name')}</span>
                                 </div>
                                 {/* Event Date* */}
                                 <div className="form-group mb-4">
                                     <label className="ps-sm-4 ps-2" htmlFor="eventDate">Event Date <span className="red">*</span></label>
-                                    <input type="date" className="form-control mt-2 form-field" id="eventDate" placeholder="Select Date" />
+                                    <input type="date" value={form.date} onChange={(e)=> form.current.date = e.target.value} className="form-control mt-2 form-field" id="eventDate" placeholder="Select Date" />
+                                    <span>{validation?.errors?.first('date')}</span>
                                 </div>
                                 {/* Event Time* */}
                                 <div className="form-group mb-4">
                                     <label className="ps-sm-4 ps-2" htmlFor="eventTime">Event Time <span className="red">*</span></label>
-                                    <input type="time" className="form-control mt-2 form-field" id="eventTime" placeholder="Select Time" />
+                                    <input type="time" value={form.time} onChange={(e)=> form.current.time = e.target.value} className="form-control mt-2 form-field" id="eventTime" placeholder="Select Time" />
+                                    <span>{validation?.errors?.first('time')}</span>
                                 </div>
                                 {/* Guest of Honor */}
                                 <div className="form-group mb-5">
                                     <label className="ps-sm-4 ps-2" htmlFor="guestOfHonor">Guest of Honor</label>
-                                    <input type="text" className="form-control mt-2 form-field" id="guestOfHonor" placeholder="Enter guest of honor name" />
+                                    <input type="text" value={form.guest_of_honor} onChange={(e)=> form.current.guest_of_honor = e.target.value} className="form-control mt-2 form-field" id="guestOfHonor" placeholder="Enter guest of honor name" />
+                                    <span>{validation?.errors?.first('guest_of_honor')}</span>
                                 </div>
                                 <h3 className="heading-lvl-three mb-2">Want to purchase subscription?</h3>
                                 <div className="d-flex mb-3">

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { notification, removeAccessToken, setAccessToken } from '../Util/helpers';
+import { buildFormData, notification, removeAccessToken, setAccessToken } from '../Util/helpers';
 
 export const login = async (formData)=> {
     try {            
@@ -97,3 +97,22 @@ export const resetPassword = async (data) =>
             console.log(error);
     }
  }
+
+
+ export const updateAccount = async (formData)=> {
+    const fd = new FormData();
+    buildFormData(fd,formData);
+    try {
+        let {data} = await axios.post('account',fd);
+    } catch (error) {
+            throw new Error(error.toString());
+    }
+    
+}
+
+
+
+export const getMySubscription = async (params)=> {
+    let {data} = await axios.get('/account/my-subscription',{params : params});
+    return data;
+}

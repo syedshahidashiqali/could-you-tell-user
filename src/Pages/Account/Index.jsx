@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useStore } from 'react-redux'
 import { Link } from 'react-router-dom';
+import routes from '../../routes/routes';
 
 export default function Account() {
     const store = useStore();
@@ -20,8 +21,8 @@ export default function Account() {
           <p className="silver-text">{user?.auth?.email}</p>
           <h5 className="mt-4 grey-text">Phone Number</h5>
           <p className="silver-text">{user?.phone}</p>
-          <Link to='account/edit' className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Edit Profile</Link>
-          <Link to="/password/change" className="change-pass d-block" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</Link>
+          <Link to={routes.editAccount} className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Edit Profile</Link>
+          <Link to={routes.passwordChange} className="change-pass d-block">Change Password</Link>
         </div>
       </div>
       <div className="col-lg-6 col-md-8 col-sm-10 mx-auto">

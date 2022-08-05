@@ -10,7 +10,7 @@ export default function Categories() {
         setitems(categories);
     });
     useEffect(()=>{
-        return ()=> fetch();
+        fetch();
     },[]);
     return (
         <>

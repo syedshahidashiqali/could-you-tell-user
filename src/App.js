@@ -7,17 +7,15 @@ import { useDispatch, useSelector, useStore } from 'react-redux';
 import { getAccessToken } from './Util/helpers';
 import { getUser } from './Services/Auth';
 import { useEffect } from 'react';
-import { setAuthStatus, setAuthUser } from './store/actions';
+import { setAuthStatus, setAuthUser, updateSuccessPopup } from './store/actions';
+import SuccessPopup from './Components/SuccessPopup';
 
 
 function App() {
   const dispatch = useDispatch(); 
-  const {user} = useSelector(state => state);
-
+  const {user, success_popup_params : successPopupParams, successPopup} = useSelector(state => state);
   useEffect(() => {
-    console.log(getAccessToken());
       if(!user && getAccessToken()){
-        console.log('asasdasd',user);
         (async () => {
           let { user }  = await getUser();
           dispatch(setAuthStatus(true));
@@ -32,6 +30,14 @@ function App() {
     <Navbar />
     <Router />
     <Footer />
+    <SuccessPopup 
+        isError={successPopupParams.isError} 
+        active={successPopup} 
+        closed={()=> dispatch(updateSuccessPopup(false,{}))} 
+        title={successPopupParams.title} 
+        message={successPopupParams.message} 
+        delay={successPopupParams.delay}>
+    </SuccessPopup>
     </>
   );
 }

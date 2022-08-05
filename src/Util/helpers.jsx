@@ -1,6 +1,11 @@
+
 import moment from "moment";
 import { toast } from "react-toastify";
-
+import { updateSuccessPopup } from "../store/actions";
+import { image_url } from "./connection_strings";
+// const dispatch = useDispatch();
+// const useStore = redux.();
+// const store = ()=> useStore(); 
 export const createDateAsUTC = (date) => {
   return new Date(
     Date.UTC(
@@ -26,7 +31,7 @@ export const formatCurrency = (number) => {
 export const format_number = (x) =>
   x?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-export const format_date = (date) => moment(date).format("LL");
+export const format_date = (date,format = "LL") => moment(date).format(format);
 
 export const format_time = (date) => moment(date).format("hh:mm a");
 
@@ -76,3 +81,45 @@ export const setAccessToken = (token)=>{
 
 export const getAccessToken = ()=> localStorage.getItem('u_token')
 export const removeAccessToken = ()=> localStorage.removeItem('u_token')
+
+
+export const range = (_start_, _end_)=> {
+return (new Array(_end_ - _start_ + 1)).fill(undefined).map((_, k) =>k + _start_);
+}
+
+
+
+export const buildFormData = (formData, data, parentKey) =>  {
+
+  if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
+      Object.keys(data).forEach(key => {
+          buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+      });
+  } else {
+      const value = data == null ? '' : data;
+
+      formData.append(parentKey, value);
+  }
+}
+
+
+export const serialNumber = (data, index = 0)=> {
+  let starting = data.perPage * (data.currentPage - 1);
+  index++;
+  return starting + index;
+}
+
+
+export const getRatingPercentage = (total,count)=> {
+    return ((count / total) * 100).toFixed();
+};
+
+
+export const asset = (filePath)=> {
+    return `${image_url}${filePath}`;
+};
+
+
+export const getImage = (images,index = 0)=> {
+  return images[index] || null;
+}

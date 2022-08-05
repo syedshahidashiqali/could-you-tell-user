@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import routes from "../routes/routes"
 import { logout } from "../Services/Auth"
 import MenuItems from "./data/ProfileMenuItems"
 // import
@@ -8,7 +9,7 @@ export default function ProfileMenu({user}) {
             <div className="d-flex align-items-center ms-3">
                 <a className="nav-link auth-link d-none d-xl-block px-1" href="#search"><img src="images/search-icon.svg" alt="" className="img-fluid" /></a>
                 {/* cart */}
-                <a className="nav-link auth-link d-none d-xl-block px-1" href="cart.php"><img src="images/cart-icon.svg" alt="" className="img-fluid" /></a>
+                <Link className="nav-link auth-link d-none d-xl-block px-1" to={routes.cart}><img src="images/cart-icon.svg" alt="" className="img-fluid" /></Link>
                 {/* Notifications */}
                 <div className="position-relative d-none d-xl-block px-1">
                     <a className="nav-link dropdown-toggle no-icon auth-link px-1" href="#" id="notiDrop" data-bs-toggle="dropdown" aria-expanded="false">

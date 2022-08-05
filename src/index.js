@@ -1,16 +1,20 @@
+import 'bootstrap';
+// import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ToastContainer, toast } from 'react-toastify';
-import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-tagsinput/react-tagsinput.css' // If using WebPack and style-loader.
+import './index.css';
 
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from "react-router-dom";
 import './Util/axios';
 import { Provider } from 'react-redux';
-import reducer from './store';
+import reducer from './store/reducer';
 import { configureStore } from '@reduxjs/toolkit';
+// window.$ = $;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const store = configureStore({
   reducer
@@ -19,7 +23,7 @@ const store = configureStore({
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router key={window.location.href} basename='/could-you-tell/user'>
+      <Router key={window.location.href} basename='could-you-tell/user'>
         <App />
         <ToastContainer
           position="top-center"
@@ -27,7 +31,6 @@ root.render(
           hideProgressBar
           newestOnTop={false}
           closeOnClick
-          rtl
           pauseOnFocusLoss={false}
           draggable
           pauseOnHover

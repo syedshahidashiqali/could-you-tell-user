@@ -1,3 +1,4 @@
+
 var scrollToTopBtn = document.querySelector(".scrollToTopBtn");
 var rootElement = document.documentElement;
 var TOGGLE_RATIO = 0.8;
