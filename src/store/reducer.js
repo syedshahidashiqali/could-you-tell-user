@@ -27,6 +27,8 @@ const reducer =  (state = initialState,action)=>{
             return {...state,user : {...state.user, saved_cards}}
         case actions.SET_CART_ITEMS:                    
             return {...state,cartItems : action.payload};
+        case actions.SET_COUNTRIES:                    
+            return {...state,countries : action.payload};
         default:
            return state;
      }

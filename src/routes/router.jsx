@@ -47,7 +47,7 @@ import SubCategories from "../Pages/Categories/SubCategories";
 import Products from "../Shop/Product";
 import ProductDetail from "../Shop/ProductDetail";
 import Cart from "../Pages/Cart/Cart";
-
+import Checkout from '../Pages/Checkout/Checkout';
 export default function Router(){
     const match = useMatch(window.location.pathname);
     return (
@@ -117,6 +117,7 @@ export default function Router(){
                         <Route path={route.shop.productDetail} exact element={<ProductDetail />}></Route>                        
                 </Route>
                 <Route path={route.cart} exact element={<ProtectedRoutes><Cart /> </ProtectedRoutes>}></Route>
+                <Route path={route.checkout} exact element={<ProtectedRoutes><Checkout /> </ProtectedRoutes>}></Route>
                 
         </Routes>
         </>

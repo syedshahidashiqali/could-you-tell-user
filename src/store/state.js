@@ -9,4 +9,5 @@ export default {
         isError : false,
     },
     successPopup: false,
+    countries : [],
 }

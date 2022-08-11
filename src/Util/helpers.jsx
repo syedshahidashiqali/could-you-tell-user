@@ -123,3 +123,6 @@ export const asset = (filePath)=> {
 export const getImage = (images,index = 0)=> {
   return images[index] || null;
 }
+
+
+export const joinText = (...args) => args.join(' ');

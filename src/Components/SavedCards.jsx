@@ -5,7 +5,7 @@ import useMessagePopup from "../Hooks/useMessagePopup";
 import { deleteSavedCard } from "../store/actions";
 import { useState } from "react";
 
-export const SavedCards = ({setCard,isDeleted,cardClass})=> {
+export const SavedCards = ({setCard,isDeleted,cardClass,selected})=> {
     const {user} = useSelector((state)=>state);
     const [selectedCard, setSelectedCard] = useState(null);
     const {successPopup,errorPopup} = useMessagePopup();
@@ -28,8 +28,12 @@ export const SavedCards = ({setCard,isDeleted,cardClass})=> {
     };
 
     const updateSelectedCard = (cardId)=>{
-        setSelectedCard(cardId);
-        setCard(cardId);
+        let selectedCard = null;
+        if(cardId != selected){
+            selectedCard = cardId;
+        }
+        setSelectedCard(selectedCard);
+        setCard(selectedCard);
     };
 
     return (
@@ -68,5 +72,6 @@ SavedCards.propTypes = {
 SavedCards.defaultProps = {
     isDeleted : false,
     cardClass : '',
+    selected : null,
 };
 export default SavedCards;

@@ -5,6 +5,7 @@ export const actions = {
     UPDATE_SUCCESS_POPUP : 'UPDATE_SUCCESS_POPUP',
     DELETE_SAVED_CARD : 'DELETE_SAVED_CARD',
     SET_CART_ITEMS : 'SET_CART_ITEMS',
+    SET_COUNTRIES : 'SET_COUNTRIES',
 } 
 export function setAuthUser(user)
 {
@@ -53,3 +54,10 @@ export const setCart = (cartItems) =>{
         payload : cartItems,
     };
 }
+
+export const setCountries = (payload)=> {
+    return {
+        type : actions.SET_COUNTRIES,
+        payload, 
+    };
+};

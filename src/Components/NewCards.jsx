@@ -8,7 +8,7 @@ import routes from '../routes/routes';
 import { storeCard } from '../Services/Card';
 import { pushSavedCardInfo } from '../store/actions';
 
-export default function NewCard({setCard}) {
+function NewCard({setCard,showBackBtn,tag : Tag}) {
     const [validation, setValidation] = useState(null)
     const {cardNumberFilter,updateFormData,formData,cardExpiryFilter} = useCardFormatter();
     const dispatch = useDispatch();
@@ -35,12 +35,13 @@ export default function NewCard({setCard}) {
         }
 
     });
+    
 
     
 
     return (
         <div className="profile-details mt-4">
-            <form onSubmit={(e)=> submit(e)}>
+            <Tag onSubmit={(e)=> submit(e)}>                
                 {/* Cardholder Name** */}
                 <div className="form-group mb-4">
                     <label className="ps-sm-4 ps-2" htmlFor="cardHolderName">Cardholder Name <span className="red">*</span></label>
@@ -71,11 +72,20 @@ export default function NewCard({setCard}) {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <button type='submit' className="gold-btn-solid d-inline-block my-3 eq-width-btn me-3 text-center">Proceed</button>
-                        <button type="button" className="grey-btn-outline d-inline-block my-3 eq-width-btn">Back</button>
+                        <button type={Tag == 'form'?'submit':'button'} onClick={(e)=> Tag != 'form'?submit(e):''} className="gold-btn-solid d-inline-block my-3 eq-width-btn me-3 text-center">Proceed</button>
+                        {
+                            showBackBtn?
+                            <button type="button" className="grey-btn-outline d-inline-block my-3 eq-width-btn">Back</button>
+                            :''
+                        }
                     </div>
                 </div>
-            </form>
+            </Tag>
         </div>
     )
 }
+NewCard.defaultProps = {
+    showBackBtn : false,
+    tag : 'form',
+};
+export default NewCard;

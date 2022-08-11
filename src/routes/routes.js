@@ -43,4 +43,5 @@ export default {
         productDetail : ':category/products/:id',
     },
     cart : '/cart',
+    checkout : '/checkout',
 };
