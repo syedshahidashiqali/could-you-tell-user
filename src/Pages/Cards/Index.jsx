@@ -3,16 +3,6 @@ import SavedCards from "../../Components/SavedCards";
 import { getSavedCards } from "../../Services/Card";
 
 export default function Cards() {
-   /*  const [cards, setCards] = useState([]);
-    const fetch = async ()=>{
-        let {cards} = await getSavedCards();
-        setCards(cards);
-    } 
-    
-    useEffect(()=>{
-        fetch();
-    },[]); */
-
     return (
         <section className="virtual-events text-white">
             <div className="container py-5">

@@ -40,3 +40,15 @@ export const getCities = async (stateId)=> {
         console.log(error);
     }
 };
+
+
+
+export const contactUs = async (params)=> {
+    try {
+        let {data} = await axios.post(`/user/contact`,params); 
+        return data;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error);
+    }
+};

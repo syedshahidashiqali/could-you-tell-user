@@ -38,9 +38,6 @@ function CheckoutStep2(props) {
             />
             {/* Pay With Options */}
             <CardInfo card={cardInfo}/>
-            <div className="col-12">
-                <a onClick={() => changeStep()} className="cursor gold-btn-solid d-inline-block text-center eq-width-btn me-3 px-4">Continue</a>
-            </div>
         </>
 
     )

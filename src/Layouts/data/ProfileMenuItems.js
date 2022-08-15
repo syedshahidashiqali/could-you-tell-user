@@ -36,7 +36,7 @@ export default [
     },
     {
         label : 'wishlists',
-        to : '/invited-events',       
+        to : '/account/wishlists',       
         icon : 'images/heart-icon.svg',     
     },
     {
@@ -46,7 +46,7 @@ export default [
     },
     {
         label : 'My Reviews',
-        to : '/review',       
+        to : '/my-reviews',       
         icon : 'images/reviews-icon.svg',     
     },
     {

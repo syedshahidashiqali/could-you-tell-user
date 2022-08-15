@@ -2,12 +2,12 @@ import { useEffect } from "react";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 import { useParams } from "react-router-dom";
-import Incremeter from "../Components/Incremeter";
-import Pagination from "../Components/Pagination";
-import ProductSlider from "../Components/ProductSlider";
-import useCart from "../Hooks/useCart";
-import { getProduct, getReviews } from "../Services/Products";
-import { format_date, getRatingPercentage, notification } from "../Util/helpers";
+import Incremeter from "../../Components/Incremeter";
+import Pagination from "../../Components/Pagination";
+import ProductSlider from "../../Components/ProductSlider";
+import useCart from "../../Hooks/useCart";
+import { getProduct, getReviews } from "../../Services/Products";
+import { format_date, getRatingPercentage, notification } from "../../Util/helpers";
 
 export default function ProductDetail() {
   let { id } = useParams();

@@ -7,8 +7,8 @@ export default {
     pr2 :  '/password-recovery/verify/code',
     pr3 : '/password-recovery/new-password',
     account : '/account',
-    editAccount : '/account/edit',
-    passwordChange : '/password/change',
+    editAccount : 'edit',
+    passwordChange : 'password/change',
     hostEvents : '/host-events',
     hostEventsForm : ':id',
     hostEventsPay : '/host-events/:id/pay',
@@ -44,4 +44,11 @@ export default {
     },
     cart : '/cart',
     checkout : '/checkout',
+    orders : {
+        index : '/orders',
+        show : ':order_id',
+    },
+    wishlist : 'wishlists',
+    reviews : 'my-reviews',
+    contact : '/contact-us'
 };

@@ -22,7 +22,7 @@ export default function Account() {
           <h5 className="mt-4 grey-text">Phone Number</h5>
           <p className="silver-text">{user?.phone}</p>
           <Link to={routes.editAccount} className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Edit Profile</Link>
-          <Link to={routes.passwordChange} className="change-pass d-block">Change Password</Link>
+          <Link to={`${routes.account}/${routes.passwordChange}`} className="change-pass d-block">Change Password</Link>
         </div>
       </div>
       <div className="col-lg-6 col-md-8 col-sm-10 mx-auto">

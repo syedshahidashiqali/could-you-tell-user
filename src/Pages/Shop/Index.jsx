@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
-import { getCategories } from '../Services/Categories';
+import { getCategories } from '../../Services/Categories';
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { Link } from 'react-router-dom';
 import { reverse } from 'named-urls';
-import routes from '../routes/routes';
+import routes from '../../routes/routes';
 
 export default function ShopMainPage() {
     const [categories, setCategories] = useState([]);

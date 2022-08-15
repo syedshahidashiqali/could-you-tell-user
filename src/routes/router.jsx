@@ -42,12 +42,18 @@ import StoryTypes from "../Pages/Stories/Types";
 import StoriesListing from "../Pages/Stories/Stories";
 import StoryDetail from "../Pages/Stories/Detail";
 import MyStories from "../Pages/Stories/MyStories";
-import ShopMainPage from "../Shop/Index";
+import ShopMainPage from "../Pages/Shop/Index";
 import SubCategories from "../Pages/Categories/SubCategories";
-import Products from "../Shop/Product";
-import ProductDetail from "../Shop/ProductDetail";
+import Products from "../Pages/Shop/Product";
+import ProductDetail from "../Pages/Shop/ProductDetail";
 import Cart from "../Pages/Cart/Cart";
 import Checkout from '../Pages/Checkout/Checkout';
+import OrderIndex from "../Pages/Order/Index";
+import Wishlist from "../Pages/Account/Wishlist";
+import OrderDetail from "../Pages/Order/Show";
+import ReviewIndex from "../Pages/Reviews/Index";
+import ChangePassword from "../Pages/Account/ChangePassword";
+import Contact from "../Pages/Contact/Contact";
 export default function Router(){
     const match = useMatch(window.location.pathname);
     return (
@@ -68,8 +74,13 @@ export default function Router(){
                         <AuthGuard><PR3 /> </AuthGuard>} />
                 
                 {/* Protected Routes */}
-                <Route path={route.account} exact element={<ProtectedRoutes><Account /> </ProtectedRoutes>} />
-                <Route path={route.editAccount} exact element={<ProtectedRoutes><EditAccount /> </ProtectedRoutes>} />
+                <Route path={route.account} exact element={<ProtectedRoutes><Outlet /> </ProtectedRoutes>}>
+                        <Route path="" exact element={<ProtectedRoutes><Account /> </ProtectedRoutes>} />
+                        <Route path={route.editAccount} exact element={<ProtectedRoutes><EditAccount /> </ProtectedRoutes>} />
+                        <Route path={route.wishlist} exact element={<ProtectedRoutes><Wishlist /> </ProtectedRoutes>} />
+                        <Route path={route.passwordChange} exact element={<ProtectedRoutes><ChangePassword /> </ProtectedRoutes>} />
+                        
+                </Route>
                 <Route path={route.myEvents} exact element={<ProtectedRoutes><Outlet/></ProtectedRoutes>}>
                         <Route path="" exact index element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
                         <Route path=':type' exact element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
@@ -118,7 +129,12 @@ export default function Router(){
                 </Route>
                 <Route path={route.cart} exact element={<ProtectedRoutes><Cart /> </ProtectedRoutes>}></Route>
                 <Route path={route.checkout} exact element={<ProtectedRoutes><Checkout /> </ProtectedRoutes>}></Route>
-                
+                <Route path={route.orders.index} exact element={<ProtectedRoutes><Outlet /> </ProtectedRoutes>}>
+                        <Route path="" exact element={<OrderIndex />}></Route>                                                
+                        <Route path={route.orders.show} exact element={<OrderDetail />}></Route>                                                
+                </Route>
+                <Route path={route.reviews} exact element={<ProtectedRoutes><ReviewIndex /> </ProtectedRoutes>}></Route>
+                <Route path={route.contact} exact element={<Contact />}></Route>
         </Routes>
         </>
     )

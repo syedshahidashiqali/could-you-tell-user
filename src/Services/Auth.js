@@ -99,11 +99,12 @@ export const resetPassword = async (data) =>
  }
 
 
- export const updateAccount = async (formData)=> {
+export const updateAccount = async (formData)=> {
     const fd = new FormData();
     buildFormData(fd,formData);
     try {
         let {data} = await axios.post('account',fd);
+        return data;
     } catch (error) {
             throw new Error(error.toString());
     }
@@ -116,3 +117,20 @@ export const getMySubscription = async (params)=> {
     let {data} = await axios.get('/account/my-subscription',{params : params});
     return data;
 }
+
+
+export const updatePassword = async (data) =>
+ {
+    try {
+        let {data : response} = await axios({
+            url: `account/update-password`,
+            method: "POST",
+            data,
+          });
+        return response;
+    } catch (error) {
+        console.log(error);
+        throw new Error(error?.response?.data?.message);
+        
+    }
+ }

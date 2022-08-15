@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import routes from "../routes/routes";
 import MenuItems from "./data/MenuItems"
 import ProfileMenu from "./ProfileMenu"
 export default function Navbar() {
@@ -15,7 +16,7 @@ export default function Navbar() {
                     <div className="col-12">
                         <nav className="navbar navbar-expand-xl bg-transparent">
                         <div className="container-fluid px-0">
-                            <a className="navbar-brand" href="home.php"><img src="images/logo.svg" alt="" className="img-fluid" /></a>
+                            <Link className="navbar-brand" to={routes.home}><img src="images/logo.svg" alt="" className="img-fluid" /></Link>
                             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"><img src="images/menu-toggle-icon.png" alt="" className="img-fluid" /></span>
                             </button>

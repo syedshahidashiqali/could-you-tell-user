@@ -8,35 +8,8 @@ import routes from '../../routes/routes';
 import { updateStatus } from '../../Services/General';
 import { getStories } from '../../Services/Story';
 import { format_date, notification } from '../../Util/helpers';
+import { stories as tableFields } from '../../Util/table-fields';
 
-const tableFields = [{
-    label: 'Story Name',
-    key: 'title',
-}, {
-    label: 'Story Type',
-    key: 'story_type',
-}
-    , {
-    label: 'Story Category',
-    key: 'category',
-    format: (value) => value.name,
-}, {
-    label: 'Add on Date',
-    key: 'createdAt',
-    format: format_date,
-}, {
-    label: 'Add on Time',
-    key: 'createdAt',
-    format: (value) => format_date(value, 'hh:mm A'),
-}, {
-    label: 'Status',
-    key: 'status',
-    format: (value) => {
-        if (value)
-            return 'Active';
-        return 'In Active';
-    },
-}];
 const filterOptions = [
         {
             id: '',

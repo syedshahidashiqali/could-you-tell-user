@@ -51,7 +51,6 @@ export default function Subscriptions() {
                         ))
                     }
                 </div>
-                {/* <PaymentPopup paymentDetail={selectedPlan} /> */}
             </div>
         </section>
 

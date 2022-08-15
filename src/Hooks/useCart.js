@@ -28,7 +28,7 @@ function useCart() {
                         
     };
     // this will update overall cart on behalf of value
-    const updateCart = (value,productData)=> {
+    const updateCart = (value,productData,increaseQtyIfExists = false)=> {
         let cartIndex = cartItems.findIndex((item)=> item._id == productData._id);
         
         let newCartData = [...cartItems];
@@ -41,7 +41,11 @@ function useCart() {
 
         if(cartIndex >= 0){
             let cartItem = {...newCartData[cartIndex]};
-            cartItem.qty = value;
+            if(!increaseQtyIfExists)
+                cartItem.qty = value;
+            else
+                cartItem.qty += value;
+            
             newCartData[cartIndex] = cartItem;
             updateStorage(newCartData);
             return;
@@ -58,7 +62,6 @@ function useCart() {
         updateStorage(newCartData);
             
     };
-
     const flushCart = ()=> {
         updateStorage();
     };

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import Pagination from '../Components/Pagination'
-import ProductSidebar from '../Components/ProductSidebar'
-import { getProducts, updateWishlist } from '../Services/Products';
+import Pagination from '../../Components/Pagination'
+import ProductSidebar from '../../Components/ProductSidebar'
+import { getProducts, updateWishlist } from '../../Services/Products';
 // var Rating = require('react-rating');
 // const Rating = require('react-rating');
 import ReactStars from "react-rating-stars-component";
-import { image_url } from '../Util/connection_strings';
-import routes from '../routes/routes';
+import { image_url } from '../../Util/connection_strings';
+import routes from '../../routes/routes';
 import { reverse } from 'named-urls';
-import { getImage } from '../Util/helpers';
+import { getImage } from '../../Util/helpers';
 
 export default function Products() {
     const [products, setProducts] = useState({});

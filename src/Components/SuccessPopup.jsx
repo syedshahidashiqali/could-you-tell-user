@@ -44,16 +44,14 @@ const SuccessPopup = function({title,message, isError,active,delay,closed}) {
                     data-bs-dismiss="modal"
                     aria-label="Close"
                 >
-                    {
-                    (!isError)?
                         <img src="images/close-icon.svg" alt="" className="img-fluid" />
-                    :
-                        <img src="images/cancel.png" alt="" className="img-fluid" />                    
-                    }
                 </button>
                 </div>
                 <div className="modal-body text-center border-0 py-0">
-                <div id="signedUp" className="w-50 mx-auto" />
+                {/* <div id="signedUp" className="w-50 mx-auto" /> */}
+                {
+                    <img src={!isError?'images/green-check.svg':'images/cancel.png'}/>
+                }
                 <h5 className="modal-title modal-heading">{title?title:'System Message!'}</h5>
                 <p className="modal-text">
                     {message?message:''}

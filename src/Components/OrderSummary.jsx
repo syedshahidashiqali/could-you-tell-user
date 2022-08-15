@@ -3,7 +3,7 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import routes from '../routes/routes';
-function OrderSummary({colClass,showCheckoutBtn,btnTitle}) {
+function OrderSummary({colClass,showCheckoutBtn,btnTitle,children}) {
     let {cartItems} = useSelector(state => state);
     const getTotal = ()=> {
         let total = cartItems.reduce((prev,current)=> prev += (current.price * current.qty) ,0);
@@ -30,7 +30,7 @@ function OrderSummary({colClass,showCheckoutBtn,btnTitle}) {
                 {
                 showCheckoutBtn?
                     <Link to={routes.checkout} className="gold-btn-solid d-block my-4 eq-width-btn mx-auto text-center">{btnTitle}</Link>
-                    :''
+                    :children
                 }
             </div>
         </div>

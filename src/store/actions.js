@@ -6,6 +6,7 @@ export const actions = {
     DELETE_SAVED_CARD : 'DELETE_SAVED_CARD',
     SET_CART_ITEMS : 'SET_CART_ITEMS',
     SET_COUNTRIES : 'SET_COUNTRIES',
+    UPDATE_CONFIRM_POPUP : 'UPDATE_CONFIRM_POPUP',
 } 
 export function setAuthUser(user)
 {
@@ -60,4 +61,13 @@ export const setCountries = (payload)=> {
         type : actions.SET_COUNTRIES,
         payload, 
     };
+};
+
+
+export const updateConfirmPopup = (value, params = {})=> {
+    params.visibility = value; 
+    return {
+        type : actions.UPDATE_CONFIRM_POPUP,
+        payload : params,
+    }
 };

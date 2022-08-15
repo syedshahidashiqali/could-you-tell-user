@@ -1,6 +1,19 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import { getCategories, getProductSubCategories } from '../Services/Categories';
 
 export default function ProductSidebar() {
+    let {id} = useParams();
+    let [categories,setCategories] = useState([]); 
+    const fetch = async (page = 1)=> {
+        let {categories} = await getCategories(id);
+        setCategories(categories);
+    };
+  
+  useEffect(()=> {    
+    fetch();  
+  },[]);
+
     return (
         <div className="col-xl-3 col-lg-4 col-md-8 mx-auto mb-5">
             <form action>

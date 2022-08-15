@@ -8,6 +8,13 @@ export default {
         delay: 0,
         isError : false,
     },
+    confirm_popup_params: {
+        title: null,
+        message: null,
+        visibility : false,
+        isConfirmed : false,
+        isCanceled : false,
+    },
     successPopup: false,
     countries : [],
 }
