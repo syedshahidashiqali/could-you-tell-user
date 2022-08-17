@@ -115,7 +115,7 @@ export const getRatingPercentage = (total,count)=> {
 };
 
 
-export const asset = (filePath)=> {
+export const asset = (filePath = null)=> {
     return `${image_url}${filePath}`;
 };
 

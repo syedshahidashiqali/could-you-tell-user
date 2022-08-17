@@ -32,7 +32,7 @@ export default function SubscriptionPayment() {
 
     const subscribe = async ()=> {
         if(selectedCard == null){
-            notification('please select card first','danger');
+            notification('please select card first','error');
             return;
         }
         try {
@@ -42,6 +42,10 @@ export default function SubscriptionPayment() {
             notification(error);
         }
 
+    };
+    const onSetCard = (value)=> {
+        setSelectedCard(value);
+        subscribe()
     };
     // const  = async (selectedCard) => {
     //     await ;
@@ -97,13 +101,8 @@ export default function SubscriptionPayment() {
                         {
                             (isNewCard) ?
                                 <>
-                                <NewCard setCard={(value) => setSelectedCard(value)}></NewCard>
-                                <div className="row">
-                                    <div className="col-12">
-                                        <button onClick={()=> subscribe()} type="button" className="gold-btn-solid d-inline-block my-3 eq-width-btn me-3 text-center">Proceed</button>
-                                        {/* <button type="button" className="grey-btn-outline d-inline-block my-3 eq-width-btn">Back</button> */}
-                                    </div>
-                                </div>
+                                <NewCard showSubmitBtn={true} setCard={(value) => onSetCard(value)}>
+                                </NewCard>
                                 </>
                                 :
                                 <>

@@ -1,5 +1,5 @@
 import { reverse } from 'named-urls';
-import React, { useCallback, useRef, useState } from 'react'
+import React, { Children, useCallback, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Validator from 'validatorjs';
@@ -7,8 +7,9 @@ import useCardFormatter from '../Hooks/useCardFormatter';
 import routes from '../routes/routes';
 import { storeCard } from '../Services/Card';
 import { pushSavedCardInfo } from '../store/actions';
+import { notification } from '../Util/helpers';
 
-function NewCard({setCard,showBackBtn,tag : Tag}) {
+function NewCard({setCard,showBackBtn,tag : Tag,showSubmitBtn,children}) {
     const [validation, setValidation] = useState(null)
     const {cardNumberFilter,updateFormData,formData,cardExpiryFilter} = useCardFormatter();
     const dispatch = useDispatch();
@@ -28,10 +29,15 @@ function NewCard({setCard,showBackBtn,tag : Tag}) {
 
         setValidation(validator);
         if(validator.fails()) return;
-        let {card,status} = await storeCard({...formData});
-        if(status){
-            dispatch(pushSavedCardInfo(card));
-            await setCard(card.cardId);
+        try {
+            
+            let {card,status} = await storeCard({...formData});
+            if(status){
+                dispatch(pushSavedCardInfo(card));
+                await setCard(card.cardId);
+            }
+        } catch (error) {
+                notification(error?.message,'error');
         }
 
     });
@@ -72,7 +78,12 @@ function NewCard({setCard,showBackBtn,tag : Tag}) {
                 </div>
                 <div className="row">
                     <div className="col-12">
-                        <button type={Tag == 'form'?'submit':'button'} onClick={(e)=> Tag != 'form'?submit(e):''} className="gold-btn-solid d-inline-block my-3 eq-width-btn me-3 text-center">Proceed</button>
+                        {
+                            (showSubmitBtn?
+                                <button type={Tag == 'form'?'submit':'button'} onClick={(e)=> Tag != 'form'?submit(e):''} className="gold-btn-solid d-inline-block my-3 eq-width-btn me-3 text-center">Proceed</button>
+                            :
+                            children)
+                        }
                         {
                             showBackBtn?
                             <button type="button" className="grey-btn-outline d-inline-block my-3 eq-width-btn">Back</button>
@@ -87,5 +98,6 @@ function NewCard({setCard,showBackBtn,tag : Tag}) {
 NewCard.defaultProps = {
     showBackBtn : false,
     tag : 'form',
+    showSubmitBtn : true,
 };
 export default NewCard;

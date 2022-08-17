@@ -23,6 +23,7 @@ export default {
     categoryDetail : '/categories/:id',
     subCategories : '/categories/:id',
     myEvents : '/my-events',
+    invitedEvents : '/invited-events',
     eventDetail : '/events/:id',
     editEvent : '/events/:id/edit',
     subscriptions : '/subscription-plan',
@@ -39,7 +40,7 @@ export default {
     },
     shop : {
         index : '/shop',
-        products : ':category/products',
+        products : ':category/:subcategory/products',
         productDetail : ':category/products/:id',
     },
     cart : '/cart',

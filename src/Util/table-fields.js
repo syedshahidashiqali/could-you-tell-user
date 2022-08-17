@@ -63,3 +63,65 @@ export const reviews = [
     },    
     
 ];
+
+
+
+export const myEvents = [
+    {
+        label : 'Event Name',
+        key : 'name',
+    },
+    {
+        label : 'Event Type',
+        key : 'event_type',
+    },
+    {
+        label : 'Payment Type',
+        key : 'type',
+    },
+    {
+        label : 'Event Cost',
+        key : 'event_cost',
+        format : (value)=> `$${value}`
+    },
+    {
+        label : 'Event Date',
+        key : 'date',
+        format : format_date,
+    },
+    {
+        label : 'Event Time',
+        key : 'time',
+    }
+];
+
+
+export const invitedEvents = [
+    {
+        label : 'Event Name',
+        key : 'name',
+    },
+    {
+        label : 'Event Type',
+        key : 'event_type',
+    },
+    {
+        label : 'Invitee',
+        key : 'user',
+        format : (user)=> user.name, 
+    },
+    {
+        label : 'Event Cost',
+        key : 'event_cost',
+        format : (value)=> `$${value}`
+    },
+    {
+        label : 'Event Date',
+        key : 'date',
+        format : format_date,
+    },
+    {
+        label : 'Event Time',
+        key : 'time',
+    }
+];

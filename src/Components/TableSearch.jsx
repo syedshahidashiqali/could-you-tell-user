@@ -24,7 +24,7 @@ function TableSearch({filterValues,onFilterChange,onSearch,onDateChange}) {
                             </select>
                         </div>
                         <div className="col-md-6 mb-2">
-                            <input id="eventDate" onChange={(e)=> {}} className="form-select form-field" type="date" placeholder="Event Date" />
+                            <input id="eventDate" onChange={(e)=> onDateChange(e.target.value)} className="form-select form-field" type="date" placeholder="Event Date" />
                         </div>
                     </div>
                 </div>

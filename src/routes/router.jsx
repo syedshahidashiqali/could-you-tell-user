@@ -85,9 +85,14 @@ export default function Router(){
                         <Route path="" exact index element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
                         <Route path=':type' exact element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
                 </Route>
+                <Route path={route.invitedEvents} exact element={<ProtectedRoutes><Outlet/></ProtectedRoutes>}>
+                        <Route exact index element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
+                        <Route path=':type' exact element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
+                </Route>
+                
                 <Route path='events' exact element={<ProtectedRoutes><Outlet /> </ProtectedRoutes>}>
-                <Route path=':id' exact element={<ProtectedRoutes><EventsDetail /> </ProtectedRoutes>} />
-                <Route path=':id/edit' exact element={<ProtectedRoutes><EditEvent /> </ProtectedRoutes>} />
+                        <Route path=':id' exact element={<ProtectedRoutes><EventsDetail /> </ProtectedRoutes>} />
+                        <Route path=':id/edit' exact element={<ProtectedRoutes><EditEvent /> </ProtectedRoutes>} />
                         
                 </Route>
                 <Route path={route.hostEvents} element={<ProtectedRoutes><Index /> </ProtectedRoutes>}>

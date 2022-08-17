@@ -1,13 +1,17 @@
 import axios from "axios"
 
 export const storeCard = async (data)=> {
-    let {data : response} = await axios({
-        url : '/card/create',
-        method : 'POST',
-        data,
-    });
-    
-    return response;
+    try {
+        let {data : response} = await axios({
+            url : '/card/create',
+            method : 'POST',
+            data,
+        });
+        
+        return response;
+    } catch ({response}) {
+        throw new Error(response?.data?.message);
+    }
 }
 
 

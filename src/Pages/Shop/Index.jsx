@@ -31,22 +31,24 @@ export default function ShopMainPage() {
                             <h2 className="fs-30 font-weight-light pb-4">Explore Popular Categories</h2>
                         </div>
                         <div className="col-lg-1 col-sm-2 col-3 text-end pb-1">
-                            <a href="category.php" className="text-white">View All</a>
+                            <Link to={routes.categoriesList} className="text-white">View All</Link>
                         </div>
                     </div>
                     <div className="row pb-5">
                         <OwlCarousel className='owl-theme' lazyContent>
                         {
                             categories?.data?.map((category,categoryIndex)=> (
-                                <div key={categoryIndex} className="item">
-                                    <div className="popular-category">
-                                        <img src="images/popular-category-a.png" alt="" className="img-fluid" />
-                                        <div className="category-tile">
-                                            <img src="images/category-title-image-a.png" alt="" className="img-fluid" />
-                                            <Link to={reverse(routes.subCategories,{id : category._id})}  className="popular-category-title">{category?.name}</Link>
+                                <Link key={categoryIndex} to={reverse(routes.subCategories,{id : category._id})}  className="popular-category-title">
+                                    <div className="item">
+                                        <div className="popular-category">
+                                            <img src="images/popular-category-a.png" alt="" className="img-fluid" />
+                                            <div className="category-tile">
+                                                <img src="images/category-title-image-a.png" alt="" className="img-fluid" />
+                                                    {category?.name}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))
                         }
                         </OwlCarousel>

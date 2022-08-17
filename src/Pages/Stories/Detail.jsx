@@ -6,6 +6,7 @@ import routes from '../../routes/routes';
 import { getStoryCategory } from '../../Services/Categories';
 import { getStoryDetail } from '../../Services/Story';
 import { image_url } from '../../Util/connection_strings';
+import { asset } from '../../Util/helpers';
 
 export default function StoryDetail() {
     let {id,category,type} = useParams();
@@ -37,15 +38,28 @@ export default function StoryDetail() {
                         <div className="col-12 mb-3">
                             <div className="story-banner">
                                 {
-                                    (type == 'video'?
-                                    <video crossOrigin="anonymous" width={400} height="200">
-                                        <source src={`${image_url}${story?.media}`}></source>
+                                    (type == 'video' && story?.media?
+                                    <video crossOrigin="anonymous" controls controlsList='nodownload' poster={asset(story?.cover_image)} width={600} height="200">
+                                        <source type="video/mp4" src={asset(story?.media)}></source>
                                     </video>:'')
                                 }
-                                {/* <img src={`${image_url}/${story.cover_image}`} alt="" className="img-fluid" /> */}
-                                {/* <a data-fslightbox href="images/video.mp4" className="play-button btn">
-                                    <img src="images/play-button.png" alt="" className="img-fluid" />
-                                </a> */}
+                                {
+                                    (type == 'textual'?
+                                        <img width={400} height="400" crossOrigin="anonymous" src={asset(story?.cover_image)} alt="" className="img-fluid" />
+                                        :''
+                                    )
+                                }
+                                {
+                                    (type == 'audio'  && story?.media?
+                                        <>
+                                            <img width={400} height="400" crossOrigin="anonymous" src={asset(story?.cover_image)} alt="" className="img-fluid" />
+                                            <audio crossOrigin="anonymous" controls controlsList='nodownload'>
+                                                <source type="audio/mp3" src={asset(story?.media)}></source>
+                                            </audio>
+                                        </>
+                                        :''
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="col-12 mt-2">
