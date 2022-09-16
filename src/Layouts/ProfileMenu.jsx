@@ -4,10 +4,14 @@ import { logout } from "../Services/Auth"
 import MenuItems from "./data/ProfileMenuItems"
 // import
 export default function ProfileMenu({user}) {
+    const openSearch = ()=> {
+        let searchBox = document.querySelector('#search');
+        searchBox.classList.add('open')
+    };
     return (
         <div className="navbar-nav align-items-xl-center mt-4 mt-xl-0">
             <div className="d-flex align-items-center ms-3">
-                <a className="nav-link auth-link d-none d-xl-block px-1" href="#search"><img src="images/search-icon.svg" alt="" className="img-fluid" /></a>
+                {/* <a onClick={()=> openSearch()} className="cursor nav-link auth-link d-none d-xl-block px-1"><img src="images/search-icon.svg" alt="" className="img-fluid" /></a> */}
                 {/* cart */}
                 <Link className="nav-link auth-link d-none d-xl-block px-1" to={routes.cart}><img src="images/cart-icon.svg" alt="" className="img-fluid" /></Link>
                 {/* Notifications */}

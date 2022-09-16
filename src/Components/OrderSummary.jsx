@@ -2,11 +2,14 @@ import { reverse } from 'named-urls';
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import useCart from '../Hooks/useCart';
 import routes from '../routes/routes';
 function OrderSummary({colClass,showCheckoutBtn,btnTitle,children}) {
     let {cartItems} = useSelector(state => state);
+    let {getVariation} = useCart();
     const getTotal = ()=> {
-        let total = cartItems.reduce((prev,current)=> prev += (current.price * current.qty) ,0);
+        
+        let total = cartItems.reduce((prev,current)=> prev += (getVariation(current?.attributes,current?.price) * current.qty) ,0);
         return total;
     };
     return (

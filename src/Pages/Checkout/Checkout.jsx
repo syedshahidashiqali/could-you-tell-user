@@ -40,7 +40,7 @@ export default function Checkout() {
     },[]);
     const submit = async (e)=> {
         e.preventDefault();
-        let products = cartItems.map(item=>({productId : item._id, qty : item.qty,price : item.price  }));
+        let products = cartItems.map(item=>({productId : item._id, qty : item.qty,price : item.price,attributes : item.attributes,  }));
         // if shipping is not set then add billing as shipping
         let shipping = formData?.billing?.hasDifferentShipping?formData?.shipping:formData?.billing;
         // creating data object for api

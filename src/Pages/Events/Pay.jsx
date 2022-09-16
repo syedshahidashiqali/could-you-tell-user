@@ -25,6 +25,7 @@ export default function Pay() {
         }
     },[]);
     const eventPayment = async (selectedCard) => {
+        console.log(selectedCard);
         await setFormData({ ...formData, card: selectedCard });
         try {
             let {event} = await storeEvent({ ...formData,event_category : id, });
@@ -79,7 +80,7 @@ export default function Pay() {
                             (isNewCard) ?
                                 <NewCard setCard={(value) => eventPayment(value)}></NewCard>
                                 :
-                                <SavedCards setCard={(value) => eventPayment(value)}></SavedCards>
+                                <SavedCards cardClass="card mt-2" setCard={(value) => eventPayment(value)}></SavedCards>
                         }
                         {/* </form> */}
                     </div>

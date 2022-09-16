@@ -7,9 +7,11 @@ import 'owl.carousel/dist/assets/owl.theme.default.css';
 import { Link } from 'react-router-dom';
 import { reverse } from 'named-urls';
 import routes from '../../routes/routes';
+import useURL from '../../Hooks/useURL';
 
 export default function ShopMainPage() {
     const [categories, setCategories] = useState([]);
+    let {generateQueryLink} = useURL();
     const fetchPopularCategories = async () => {
         let data = await getCategories();
         setCategories(data);
@@ -38,7 +40,7 @@ export default function ShopMainPage() {
                         <OwlCarousel className='owl-theme' lazyContent>
                         {
                             categories?.data?.map((category,categoryIndex)=> (
-                                <Link key={categoryIndex} to={reverse(routes.subCategories,{id : category._id})}  className="popular-category-title">
+                                <Link key={categoryIndex} to={generateQueryLink(reverse(`${routes.categoriesList}`),{parent : category?._id})}  className="popular-category-title">
                                     <div className="item">
                                         <div className="popular-category">
                                             <img src="images/popular-category-a.png" alt="" className="img-fluid" />

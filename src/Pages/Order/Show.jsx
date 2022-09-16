@@ -1,6 +1,7 @@
 import { reverse } from 'named-urls';
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import useCart from '../../Hooks/useCart';
 import routes from '../../routes/routes';
 import { getOrder } from '../../Services/Order';
 import { asset, format_date, getImage, joinText, notification } from '../../Util/helpers';
@@ -9,6 +10,7 @@ export default function OrderDetail() {
     const { order_id } = useParams();
     const navigate = useNavigate();
     const [order, setOrder] = useState({});
+    let {getVariation} = useCart();
     const fetch = async () => {
         try {
             let { order } = await getOrder(order_id);
@@ -168,8 +170,9 @@ export default function OrderDetail() {
                                                                 <td>
                                                                     <div className="order-item-detail">
                                                                         <p className="item-title mb-2">{item?.product?.name}</p>
-                                                                        {/* <p className="item-color mb-2">Color: <span className="bg-lemon ms-1" /></p> */}
-                                                                        {/* <p className="item-price">Size: <span className="ms-1">Medium</span> </p> */}
+                                                                            {item?.product?.attributes?.map((attribute,attributeIndex)=> (
+                                                                                <p key={attributeIndex} className="item-color mb-2">{attribute?.label}: {attribute?.value?.name}</p>
+                                                                            ))}
                                                                     </div>
                                                                 </td>
                                                                 {/* product Quantity */}
@@ -177,7 +180,7 @@ export default function OrderDetail() {
                                                                     <p className="item-qty">Qty: {item?.qty}</p>
                                                                 </td>
                                                                 <td>
-                                                                    <p className="item-qty">Unit Price: ${item?.price}</p>
+                                                                    <p className="item-qty">Unit Price: ${getVariation(item?.product?.attributes,item?.price)}</p>
                                                                 </td>
                                                                 <td>
                                                                     <Link to={reverse(`${routes?.shop?.index}/${routes?.shop?.productDetail}`,{category : item?.product?.category,id : item?.productId})} className="text-white text-decoration-none">Details</Link>

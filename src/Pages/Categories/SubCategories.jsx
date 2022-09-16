@@ -48,7 +48,7 @@ export default function SubCategories() {
                   <img src={category.category_image} crossOrigin="anonymous" alt="" className="img-fluid" />
                   <div className="category-tile">
                     <img src="images/category-title-image-a.png" alt="" className="img-fluid" />
-                    <Link to={reverse(`${routes.shop.index}/${routes.shop.products}`,{category : id})} className="popular-category-title">{subCategory?.name}</Link>
+                    {/* <Link to={urlGenerator(reverse(`${routes.shop.index}/${routes.shop.products}`),{sub_category : subCategory?._id})} className="popular-category-title">{subCategory?.name}</Link> */}
                   </div>
                 </div>
               </div>

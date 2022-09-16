@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useStore } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { getUser } from '../Services/Auth'
 import { getAccessToken } from '../Util/helpers';
+import routes from './routes';
 
 export default function ProtectedRoutes({children}) {
   let store = useStore();
@@ -13,7 +14,12 @@ export default function ProtectedRoutes({children}) {
     useEffect(()=>{
       
       if(!token){
-        navigate('/login',{replace : true});
+        navigate({
+          pathname : routes.login,
+          search : createSearchParams({return : window.location.href}).toString(),
+        },{
+          replace : true,
+        });
       }
 
     },[token]);

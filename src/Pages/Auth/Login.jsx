@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import useURL from "../../Hooks/useURL";
 import {getUser, login} from '../../Services/Auth';
 import { getAccessToken } from "../../Util/helpers";
 export default function Login() {
     const  navigate = useNavigate();
+    let {params} = useURL();
     let form = useRef({
         email : null,
         password : null,
@@ -11,8 +13,13 @@ export default function Login() {
     // on submit call login service
     const submit = useCallback(async (e)=> {
         e.preventDefault();
+        
         let data = await login(form.current);
         if(data?.token){
+            if(params?.return){
+                window.location.href = params?.return; 
+                return;
+            }
             window.location.reload();
         }        
     });

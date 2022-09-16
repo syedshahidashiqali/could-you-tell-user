@@ -4,6 +4,7 @@ import ReactStars from "react-rating-stars-component";
 import { useParams } from "react-router-dom";
 import Incremeter from "../../Components/Incremeter";
 import Pagination from "../../Components/Pagination";
+import ProductAttributes from "../../Components/ProductAttributes";
 import ProductSlider from "../../Components/ProductSlider";
 import useCart from "../../Hooks/useCart";
 import { getProduct, getReviews } from "../../Services/Products";
@@ -15,7 +16,9 @@ export default function ProductDetail() {
   const [ratings, setRatings] = useState([]);
   const [reviews, setReviews] = useState({});
   const [quantity,setQuantity] = useState(1);
-  const {updateCart} = useCart();
+  const [attributes,setAttributes] = useState([]);
+  const [refreshPrice,setRefreshPrice] = useState(0);
+  const {updateCart,getVariation} = useCart();
   const [sliderRefresh,setSliderRefresh] = useState(0);
   const fetch = async () => {
     let data = await getProduct(id);
@@ -29,13 +32,41 @@ export default function ProductDetail() {
   };
   
   const updateCartItem = ()=> {
-      updateCart(quantity,product);
+      if(attributes.length != product?.attributes?.length){
+        notification('attributes should be selected','error');
+        return;
+      }
+      if(quantity == 0){
+        notification('quantity should be atleast 1','error'); 
+        return;
+      }
+      updateCart(quantity,{...product,attributes});
       notification('cart updated');
   };
   useEffect(() => {
     fetch();
     fetchReviews();
   },[]);
+
+  const setSelectedAttribute = async (data)=> {
+    let newAttributes = [...attributes]; 
+    let attributeIndex = await newAttributes.findIndex(item => data?.attributeId == item?.attributeId);
+    console.log(attributeIndex);
+    if(attributeIndex >= 0){
+      if(data?.value == undefined)
+      newAttributes.splice(attributeIndex,1);
+      else
+      newAttributes[attributeIndex].value = data?.value;
+    }else{
+
+      await newAttributes.push(data);
+    }
+      await setAttributes([...newAttributes]);
+    
+      setRefreshPrice(refreshPrice + 1);
+
+  };
+
   return (
     <div className="container ">
       <div className="row py-lg-5 pt-md-5 pb-2 align-items-start justify-content-around">
@@ -54,7 +85,8 @@ export default function ProductDetail() {
             <p className="text-white">Quantity:</p>
             <Incremeter onDecrement={(value)=> setQuantity(value)} onIncrement={(value)=> setQuantity(value)}/>
           </div>
-          <p className="cost fs-20 mt-4">Price: <span className="fs-25">${product?.price}</span></p>
+          <ProductAttributes onSelection={(selectedAttribute)=> setSelectedAttribute(selectedAttribute)} attributes={product?.attributes}></ProductAttributes>
+          <p className="cost fs-20 mt-4">Price: <span className="fs-25" key={refreshPrice}>${getVariation(attributes,product?.price)}</span></p>
           <button onClick={(e)=> updateCartItem()} type="button" className="gold-btn-solid d-inline-block my-4 eq-width-btn">Add to Cart</button>
         </div>
       </div>

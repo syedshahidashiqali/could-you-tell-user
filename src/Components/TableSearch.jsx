@@ -29,7 +29,7 @@ function TableSearch({filterValues,onFilterChange,onSearch,onDateChange}) {
                     </div>
                 </div>
                 <div className="col-xl-4 col-lg-5 col-md-5 mb-2">
-                    <input onChange={(e)=> handleSearch(e.target.value)} type="text" className="form-control form-field search" name id placeholder="Search..." />
+                    <input onChange={(e)=> handleSearch(e.target.value)} type="text" className="form-control form-field search" placeholder="Search..." />
                 </div>
             </div>
         </>

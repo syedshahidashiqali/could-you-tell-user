@@ -11,6 +11,7 @@ function useCart() {
         dispatch( setCart(data) );
         localStorage.setItem('cart',JSON.stringify(data));
     };
+    
     useEffect(()=>{
         
         let cartData = localStorage.getItem('cart');
@@ -21,12 +22,14 @@ function useCart() {
         }
 
     },[]);
+    
     const deleteCartItem = (index) => {
         let items = [...cartItems];
         items.splice(index,1);
         updateStorage(items);
                         
     };
+    
     // this will update overall cart on behalf of value
     const updateCart = (value,productData,increaseQtyIfExists = false)=> {
         let cartIndex = cartItems.findIndex((item)=> item._id == productData._id);
@@ -38,7 +41,7 @@ function useCart() {
             updateStorage(newCartData);
             return;
         }
-
+        // if item is already in cart then update cart item value
         if(cartIndex >= 0){
             let cartItem = {...newCartData[cartIndex]};
             if(!increaseQtyIfExists)
@@ -57,19 +60,31 @@ function useCart() {
             name : productData?.name,
             qty : value,
             price : productData?.price,
+            attributes : productData.attributes || [],
         };
         newCartData.push(cartItem);
         updateStorage(newCartData);
             
     };
+    
     const flushCart = ()=> {
         updateStorage();
+    };
+
+    const getVariation = (attributes,defaultPrice = 0)=> {
+        let variation = (attributes.length > 0) 
+        ?
+          (attributes[0]?.value?.price || 0)
+        : defaultPrice;
+        // console.log(variation,attributes);
+        return parseInt(variation || defaultPrice);
     };
   return {
     deleteCartItem,
     updateCart,
     cartItems,
     flushCart,
+    getVariation
   };
 }
 

@@ -54,6 +54,10 @@ import OrderDetail from "../Pages/Order/Show";
 import ReviewIndex from "../Pages/Reviews/Index";
 import ChangePassword from "../Pages/Account/ChangePassword";
 import Contact from "../Pages/Contact/Contact";
+import EditRoom from "../Pages/Events/Room/Edit";
+import AttendEvent from "../Pages/Events/Attend";
+import EventInvite from "../Pages/Events/EventInvite";
+
 export default function Router(){
     const match = useMatch(window.location.pathname);
     return (
@@ -88,12 +92,13 @@ export default function Router(){
                 <Route path={route.invitedEvents} exact element={<ProtectedRoutes><Outlet/></ProtectedRoutes>}>
                         <Route exact index element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
                         <Route path=':type' exact element={<ProtectedRoutes><MyEvents /> </ProtectedRoutes>} />
-                </Route>
-                
-                <Route path='events' exact element={<ProtectedRoutes><Outlet /> </ProtectedRoutes>}>
-                        <Route path=':id' exact element={<ProtectedRoutes><EventsDetail /> </ProtectedRoutes>} />
-                        <Route path=':id/edit' exact element={<ProtectedRoutes><EditEvent /> </ProtectedRoutes>} />
-                        
+                </Route>                
+                <Route path='events/:id' exact element={<ProtectedRoutes><Outlet /> </ProtectedRoutes>}>
+                        <Route path='' index exact element={<ProtectedRoutes><EventsDetail /> </ProtectedRoutes>} />
+                        <Route path='edit' exact element={<ProtectedRoutes><EditEvent /> </ProtectedRoutes>} />
+                        <Route path='room/edit' exact element={<ProtectedRoutes><EditRoom /> </ProtectedRoutes>} />
+                        <Route path='attend' exact element={<ProtectedRoutes><AttendEvent /> </ProtectedRoutes>} />
+                        <Route path='invite' exact element={<ProtectedRoutes><EventInvite /> </ProtectedRoutes>} />
                 </Route>
                 <Route path={route.hostEvents} element={<ProtectedRoutes><Index /> </ProtectedRoutes>}>
                   <Route path="" element={<ProtectedRoutes><Categories /> </ProtectedRoutes>} />
@@ -128,9 +133,9 @@ export default function Router(){
                 
                 <Route path={route.myStories} exact element={<ProtectedRoutes><MyStories /> </ProtectedRoutes>}></Route>
                 <Route path={route.shop.index} exact element={<ProtectedRoutes><Outlet /> </ProtectedRoutes>}>
-                        <Route path="" exact element={<ShopMainPage />}></Route>                        
+                        <Route path="" exact element={<ShopMainPage />}></Route>                                                
                         <Route path={route.shop.products} exact element={<Products />}></Route>                        
-                        <Route path={route.shop.productDetail} exact element={<ProductDetail />}></Route>                        
+                        <Route path={route.shop.productDetail} exact element={<ProductDetail />}></Route>
                 </Route>
                 <Route path={route.cart} exact element={<ProtectedRoutes><Cart /> </ProtectedRoutes>}></Route>
                 <Route path={route.checkout} exact element={<ProtectedRoutes><Checkout /> </ProtectedRoutes>}></Route>

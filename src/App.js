@@ -11,7 +11,7 @@ import { setAuthStatus, setAuthUser, updateConfirmPopup, updateSuccessPopup } fr
 import SuccessPopup from './Components/SuccessPopup';
 import ConfirmPopup from './Components/Popups/ConfirmPopup';
 import event from './Util/event'; 
-
+import { Unity,useUnityContext } from 'react-unity-webgl';
 function App() {
   const dispatch = useDispatch(); 
   const {
@@ -49,7 +49,7 @@ function App() {
   return (
     <>
     <Navbar />
-    <Router />
+      <Router />
     <Footer />
     <SuccessPopup 
         isError={successPopupParams.isError} 

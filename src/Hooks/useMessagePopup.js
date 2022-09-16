@@ -7,8 +7,6 @@ const popupsDefaultValue = {
         title: null,
         message: null,
         visibility : true,
-        isConfirmed : false,
-        isCanceled : false,
     }    
 };
 export default function useMessagePopup() {

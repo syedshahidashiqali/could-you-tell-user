@@ -126,3 +126,9 @@ export const getImage = (images,index = 0)=> {
 
 
 export const joinText = (...args) => args.join(' ');
+
+
+export const excerpt =  (text = '',start = 0,end = 0)=> {
+    return text.substring(start,end)+'...';
+};
+

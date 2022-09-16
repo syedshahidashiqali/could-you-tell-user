@@ -1,11 +1,19 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import useCart from '../Hooks/useCart'
+import useMessagePopup from '../Hooks/useMessagePopup';
 import Incremeter from './Incremeter';
 
 export default function CartItems() {
     let {cartItems} = useSelector(state=> state);
-    let {updateCart, deleteCartItem,flushCart } = useCart();
+    let {updateCart, deleteCartItem,flushCart,getVariation } = useCart();
+    let {confirmPopup} = useMessagePopup();
+    const onDeleteCartItem = (itemIndex)=> {
+        confirmPopup({
+            message : 'Are you sure? do you want to remote this item',
+            onConfirm : ()=> deleteCartItem(itemIndex),
+        })
+    };
     return (
         <div className="col-xl-9 col-lg-8 pe-3">
             <div className="row">
@@ -42,7 +50,12 @@ export default function CartItems() {
                                                 <div className="order-item-detail">
                                                     <p className="item-title mb-2">{item?.name}</p>
                                                     {/* <p className="item-color mb-2">Color: <span className="bg-red ms-1" /></p> */}
-                                                    {/* <p className="item-price">Size: <span className="ms-1">2XL</span> </p> */}
+                                                    
+                                                    {
+                                                        item?.attributes?.map((attribute,attributeIndex)=>(
+                                                            <p className="item-price">{attribute?.label}: <span className="ms-1">{attribute?.value?.name}</span> </p>
+                                                        ))
+                                                    }
                                                 </div>
                                             </td>
                                             {/* product Quantity */}
@@ -58,10 +71,10 @@ export default function CartItems() {
                                             </td>
                                             {/* Status */}
                                             <td>
-                                                <p className="cost">Cost: <span>${item?.price}</span></p>
+                                                <p className="cost">Cost: <span>${getVariation(item?.attributes,item?.price)}</span></p>
                                             </td>
                                             <td>
-                                                <a onClick={() => deleteCartItem(itemIndex)} href="#" className="text-white text-decoration-none"><i className="far fa-trash-alt red fa-2x" /></a>
+                                                <a onClick={() => onDeleteCartItem(itemIndex)} href="#" className="text-white text-decoration-none"><i className="far fa-trash-alt red fa-2x" /></a>
                                             </td>
                                         </tr>
                                     ))

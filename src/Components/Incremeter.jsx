@@ -17,16 +17,21 @@ const Incremeter = ({defaultValue,onIncrement,onDecrement})=> {
   
   };
 
+
+
+
+
   useEffect(()=>{
     onIncrement(parseInt(value));
   },[value]);
 
 
 
+
   return (
     <div className="qtySelector text-center">
         <i onClick={()=> updateValue('Decrement') } className="fa fa-minus decreaseQty text-white" />
-        <input type="text" className="qtyValue" onChange={(e)=> setValue(e.target.value)} value={value} />
+        <input type="number" className="qtyValue" onChange={(e)=> setValue(e.target.value)} value={value} />
         <i onClick={()=> updateValue('Increment') } className="fa fa-plus increaseQty text-white" />
     </div>
   )

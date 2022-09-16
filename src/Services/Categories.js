@@ -46,6 +46,8 @@ export const getStoryCategories = async (data)=>{
 }
 
 
+
+
 export const getStoryCategory = async (id)=>{
     let {data : response} = await axios.get(`storyCategory/user/${id}`);
     return response;

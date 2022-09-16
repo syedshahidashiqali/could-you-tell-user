@@ -1,10 +1,10 @@
 import { reverse } from 'named-urls';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import TagsInput from 'react-tagsinput';
 import useMessagePopup from '../../Hooks/useMessagePopup';
 import routes from '../../routes/routes';
-import { sendInvite } from '../../Services/Events';
+import { getInvitees, sendInvite } from '../../Services/Events';
 import { getLists } from '../../Services/Invitees';
 
 export default function Invites() {
@@ -13,18 +13,38 @@ export default function Invites() {
     const [selectedList, setSelectedList] = useState([]);
     const {eventId} = useParams();
     const [newEmails, setNewEmails] = useState([]);
+    const [invited,setInvited] = useState([]);
     const {successPopup, errorPopup} = useMessagePopup();
+    const emailRejex = useMemo(()=> {
+        return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+    },[]);
     const fetch = async ()=>{
         let {lists : listItems} = await getLists();
         setLists(listItems);
-        if(listItems.length > 0){
-            setSelectedList(listItems[0]);
+    };
+    const fetchInvitees = async ()=> {
+        try {
+            let {invites} = await getInvitees(eventId);
+            let emails = invites?.map(item => item?.email);
+            setNewEmails(emails);
+            setInvited(emails);
+        } catch (error) {
+            console.log(error);
+            
         }
-    } 
+    }; 
+
     const sendInvites = async (e)=>{
-        let emails = [...selectedList.emails,...newEmails];
+        
+        let emails = [...newEmails];
+        emails.forEach((email)=> {
+            let index = invited.indexOf(email);
+            if(index >= 0){
+                emails.splice(index,1);
+            }
+        });
             try {
-                let {message,status} = await sendInvite({eventId,list : selectedList._id,emails});
+                let {message,status} = await sendInvite({eventId,list : selectedList._id,emails,invited});
                 if(status){
                     successPopup({
                         message,
@@ -33,18 +53,25 @@ export default function Invites() {
                 }
             } catch (error) {
                 console.log(error);
-                //  const {message} = error?.data;
-                // if(message){
                     errorPopup({
                         message : error.toString(),
                     });
-                // }
             }
             
     };
-
+    const setEmails = async (list) => {
+        let emails = [...list?.emails];
+        emails = await emails?.filter((email)=> {
+            let index = newEmails.indexOf(email);
+            if(index < 0){
+                return email;
+            }
+        });
+        setNewEmails([...newEmails,...emails]);
+    };
     useEffect(()=>{
         fetch();
+        fetchInvitees();
     },[]);
     
     return (
@@ -71,30 +98,15 @@ export default function Invites() {
                                         <select
                                             className="form-select form-field me-3 mb-3"
                                             aria-label="Default select example"
-                                            onChange={(e)=> setSelectedList(lists[e.target.value])}
+                                            onChange={(e)=> setEmails(lists[e.target.value])}
                                         >
+                                            <option value=''>Select List</option>
                                             {
                                                 lists?.map((item,index)=>(
                                                         <option key={index} value={index}>{item.title}</option>
                                                 ))
                                             }
                                         </select>
-                                    </div>
-                                    <div className="form-group mb-5 ps-sm-4 ps-2">
-                                        {/* Email Address */}
-                                        <h5 className="mb-2 grey-text">Email Address </h5>
-                                        <ul className="list-inline me-2 d-inline-block">
-                                            {
-                                                selectedList?.emails?.map((item,index)=>(
-                                                    <li key={index} className="list-inline-item me-2 d-inline-block">
-                                                        {item}{" "}
-                                                        <button type="button" className="cut-btn red">
-                                                            <i className="fas fa-times" />
-                                                        </button>
-                                                    </li>
-                                                ))
-                                            }
-                                        </ul>
                                     </div>
                                     <div className="form-group">
                                         {/* Email Address */}
@@ -104,7 +116,7 @@ export default function Invites() {
                                                 Email Address<span className="red">*</span>
                                             </h5>
                                             <div className="multiple-val-input">
-                                            <TagsInput value={newEmails} onChange={(emails)=> setNewEmails(emails)} />
+                                            <TagsInput onlyUnique={true} validationRegex={emailRejex} value={newEmails} onChange={(emails)=> setNewEmails(emails)} />
                                             </div>
                                         </div>
                                         {/* <div className="multiple-val-input ps-sm-4 ps-2">
@@ -112,12 +124,10 @@ export default function Invites() {
                                         </div> */}
                                     </div>
                                     <button
-                                        onClick={sendInvites}
+                                        onClick={(e)=> sendInvites(e)}
                                         type="button"
                                         className="gold-btn-solid d-inline-block my-4 eq-width-btn me-3 px-4"
-                                    >
-                                        Send Invites
-                                    </button>
+                                    >Send Invites</button>
                                 </form>
                                 <h5 className="grey-text">Sharable Link</h5>
                                 <p className="silver-text mb-lg-5 mb-3 d-flex align-items-center">

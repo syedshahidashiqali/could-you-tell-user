@@ -2768,7 +2768,7 @@ p.font-bold {
     z-index: 106;
     display: block;
 }
-#search input[type="search"] {
+#search input[type="text"] {
     position: absolute;
     top: 50%;
     left: 50%;

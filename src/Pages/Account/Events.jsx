@@ -42,15 +42,20 @@ export default function MyEvents() {
     useEffect(()=>{
         
         let result = location?.pathname?.includes('invited-events');
+
         let routePrefix = result ? 'invitedEvents':'myEvents';
         setRouteKey(routePrefix);
 
         if(events?.data == undefined){
             fetchCategories();
         }
-        fetch();
     },[type,filterValues]);
+    useEffect(()=>{
+        if(routeKey){
 
+            fetch();
+        } 
+    },[routeKey])
     return (
         <section className="virtual-events text-white">
             <div className="container py-5">
@@ -71,12 +76,15 @@ export default function MyEvents() {
                                     />
                                 {/* Table starts here */}
                                 <div className="grey-bg container-fluid px-0">
-                                    <Table pageChanged={(page)=> fetch(page) } data={events} fields={routeKey =='invitedEvents'?invitedEvents:myEvents}
+                                    <Table 
+                                    pageChanged={(page)=> fetch(page) } 
+                                    data={events} 
+                                    fields={routeKey =='invitedEvents'?invitedEvents:myEvents}
                                     extraHeads={()=>{
                                         return <th className="table-site-headings">Action</th>
                                     }}
                                     extraCells={(item)=>{
-                                        return <td class="text-center"><Link to={reverse(routes.eventDetail,{id : item._id})} class="view-link"><img src="images/table-eye-icon.png" alt="" class="img-fluid"/></Link></td>
+                                        return <td className="text-center"><Link to={reverse(routes.eventDetail,{id : item._id})} className="view-link"><img src="images/table-eye-icon.png" alt="" className="img-fluid"/></Link></td>
                                     }}
                                     ></Table>
                                 </div>

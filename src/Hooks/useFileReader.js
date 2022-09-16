@@ -83,6 +83,7 @@ export default function useFileReader() {
 
     return {
         getThumbnail,
+        getBase64 : getThumbnail,
         getVideoCover,
         getVideoDuration,
     };

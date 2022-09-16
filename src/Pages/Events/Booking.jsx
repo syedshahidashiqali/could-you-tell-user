@@ -10,17 +10,16 @@ export default function Booking() {
     const  navigate = useNavigate();
     const [validation,setValidation] = useState({});
     
-    let form = useRef({
+    let [form,setForm] = useState({
         name : null,
         date : null,
         time : null,
-        guest_of_honor : null,
-        
+        guest_of_honor : null,        
     });
 
     const submit = useCallback(async (e)=>{
         e.preventDefault();
-        let validator = new Validator(form.current,{
+        let validator = new Validator(form,{
 
              name : 'required',
              date : 'required',
@@ -33,15 +32,17 @@ export default function Booking() {
         
         navigate({
             pathname : reverse(routes.hostEventsPay,{id}),
-            search : createSearchParams({...form.current}).toString(),
+            search : createSearchParams({...form}).toString(),
         });
         
     });
+    
     const [category, setCategory] = useState({});
     const fetch = useCallback(async ()=> {
         let {category : data} =  await eventCategory(id);
         setCategory(data);
     });
+    
     useEffect(()=>{
          (async ()=> await fetch(id))();
     },[id]);
@@ -73,25 +74,25 @@ export default function Booking() {
                                 {/* Event Name* */}
                                 <div className="form-group mb-4">
                                     <label className="ps-sm-4 ps-2" htmlFor="eventName">Event Name <span className="red">*</span></label>
-                                    <input type="text" value={form.name} onChange={(e)=> form.current.name = e.target.value} className="form-control mt-2 form-field" id="eventName" placeholder="Enter Event Name" />
+                                    <input type="text" value={form.name} onChange={(e)=> setForm({...form,name : e.target.value})} className="form-control mt-2 form-field" id="eventName" placeholder="Enter Event Name" />
                                     <span>{validation?.errors?.first('name')}</span>
                                 </div>
                                 {/* Event Date* */}
                                 <div className="form-group mb-4">
                                     <label className="ps-sm-4 ps-2" htmlFor="eventDate">Event Date <span className="red">*</span></label>
-                                    <input type="date" value={form.date} onChange={(e)=> form.current.date = e.target.value} className="form-control mt-2 form-field" id="eventDate" placeholder="Select Date" />
+                                    <input type="date" value={form.date} onChange={(e)=> setForm({...form,date : e.target.value})} className="form-control mt-2 form-field" id="eventDate" placeholder="Select Date" />
                                     <span>{validation?.errors?.first('date')}</span>
                                 </div>
                                 {/* Event Time* */}
                                 <div className="form-group mb-4">
                                     <label className="ps-sm-4 ps-2" htmlFor="eventTime">Event Time <span className="red">*</span></label>
-                                    <input type="time" value={form.time} onChange={(e)=> form.current.time = e.target.value} className="form-control mt-2 form-field" id="eventTime" placeholder="Select Time" />
+                                    <input type="time" value={form.time} onChange={(e)=> setForm({...form,time : e.target.value})} className="form-control mt-2 form-field" id="eventTime" placeholder="Select Time" />
                                     <span>{validation?.errors?.first('time')}</span>
                                 </div>
                                 {/* Guest of Honor */}
                                 <div className="form-group mb-5">
                                     <label className="ps-sm-4 ps-2" htmlFor="guestOfHonor">Guest of Honor</label>
-                                    <input type="text" value={form.guest_of_honor} onChange={(e)=> form.current.guest_of_honor = e.target.value} className="form-control mt-2 form-field" id="guestOfHonor" placeholder="Enter guest of honor name" />
+                                    <input type="text" value={form.guest_of_honor} onChange={(e)=> setForm({...form,guest_of_honor : e.target.value})} className="form-control mt-2 form-field" id="guestOfHonor" placeholder="Enter guest of honor name" />
                                     <span>{validation?.errors?.first('guest_of_honor')}</span>
                                 </div>
                                 <h3 className="heading-lvl-three mb-2">Want to purchase subscription?</h3>

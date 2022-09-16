@@ -1,20 +1,22 @@
 import { reverse } from 'named-urls';
 import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import routes from '../../routes/routes';
 import { getEvent } from '../../Services/Events';
-import { format_date } from '../../Util/helpers';
+import { asset, excerpt, format_date } from '../../Util/helpers';
 
 export default function EventsDetail() {
-    const {id} = useParams();
+    const { id } = useParams();
     const [event, setEvent] = useState({})
-    const fetch = async ()=> {
-        let {event :data} = await getEvent(id);
+    let user = useSelector(state => state?.user);
+    const fetch = async () => {
+        let { event: data } = await getEvent(id);
         setEvent(data);
     };
-    useEffect(()=>{
+    useEffect(() => {
         fetch();
-    },[id]);
+    }, [id]);
     return (
         <section className="virtual-events text-white">
             <div className="container py-5">
@@ -25,7 +27,7 @@ export default function EventsDetail() {
                             <h1 className="heading-lvl-one d-flex align-items-center">
                                 <a href="my-events.php" className="back-link"><i className="fas fa-chevron-left text-white" /></a> Upcoming Event
                             </h1>
-                            <Link to={reverse(routes.editEvent,{id})} className="edit-button"><img src="images/edit-icon.svg" alt="" className="img-fluid" /></Link>
+                            {event?.user == user?._id && <Link to={reverse(routes.editEvent, { id })} className="edit-button"><img src="images/edit-icon.svg" alt="" className="img-fluid" /></Link>}
                         </div>
                         <div className="profile-details mt-4 mb-lg-5 pb-2">
                             <div className="row align-items-start mb-5">
@@ -49,7 +51,7 @@ export default function EventsDetail() {
                                     <p className="silver-text mb-lg-5 mb-3">{event.time}</p>
                                     {/* event link */}
                                     <h5 className="grey-text">Event Link</h5>
-                                    <p className="silver-text mb-lg-5 mb-3"><a className="green-link" href="#">www.eventlink.com</a></p>
+                                    <p className="silver-text mb-lg-5 mb-3"><Link className="green-link" to={reverse(routes.attendEvent,{id})}>{asset(reverse(routes.attendEvent,{id}).substring(1)).substring(0,30) }</Link></p>
                                 </div>
                                 <div className="col-lg-4 col-sm-6">
                                     {/* event name */}
@@ -66,11 +68,11 @@ export default function EventsDetail() {
                         {/* Email Address */}
                         <h5 className="grey-text">Email Address</h5>
                         <p className="silver-text mb-lg-5 mb-3">{
-                            event?.invitees?.map((item,itemIndex)=>(
-                                    <span>{item.email}{(itemIndex != (event?.invitees?.length - 1))?', ':' '}</span>
+                            event?.invitees?.map((item, itemIndex) => (
+                                <span>{item.email}{(itemIndex != (event?.invitees?.length - 1)) ? ', ' : ' '}</span>
                             ))
                         }</p>
-                        <Link to={reverse(routes.hostEventSendInvite,{id : event?.event_category?._id, eventId : id,})} className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Manage Invites</Link>
+                        {event?.user == user?._id && <Link to={reverse(routes.hostEventSendInvite, { id: event?.event_category?._id, eventId: id, })} className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Manage Invites</Link>}
                         {/* Sharable Link */}
                         <h5 className="grey-text">Sharable Link</h5>
                         <p className="silver-text mb-lg-5 mb-3 d-flex align-items-center">
@@ -80,7 +82,7 @@ export default function EventsDetail() {
                     </div>
                     <div className="col-lg-5 col-8 mx-auto text-center mb-5">
                         <img src="images/event-details-image.png" alt="" className="img-fluid" />
-                        <a href="edit-my-profile.php" className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Edit Virtual Room</a>
+                        {event?.user == user?._id && <Link to={reverse(`${routes.events.index}/${routes.events.editRoom}`,{id : event._id})} className="gold-btn-solid d-inline-block my-4 eq-width-btn text-center">Edit Virtual Room</Link>}
                     </div>
                 </div>
             </div>

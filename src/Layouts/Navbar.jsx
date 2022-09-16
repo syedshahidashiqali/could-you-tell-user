@@ -7,7 +7,16 @@ import ProfileMenu from "./ProfileMenu"
 export default function Navbar() {
 
     const {isLoggedIn, user} = useSelector(state => state);
-    
+    let [search,setSearch] =useState(null);
+    const fetch = ()=> {
+        // search();
+    };
+    useEffect(()=> {
+        if(search){
+            
+            fetch();
+        }
+    },[search]);
     return (
         <>
             <section id="user-navigation">
@@ -55,7 +64,7 @@ export default function Navbar() {
                         <div id="search">
                         <span className="close">X</span>
                         <form role="search" id="searchform" action="/search" method="get">
-                            <input defaultValue name="q" type="search" placeholder="type to search" />
+                            <input value={search} onChange={(e)=> setSearch(e.target.value)} name="q" type="text" placeholder="type to search" />
                         </form>
                         </div>
                     </div>
