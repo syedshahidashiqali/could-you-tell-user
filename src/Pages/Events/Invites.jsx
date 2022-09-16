@@ -116,7 +116,7 @@ export default function Invites() {
                                                 Email Address<span className="red">*</span>
                                             </h5>
                                             <div className="multiple-val-input">
-                                            <TagsInput onlyUnique={true} validationRegex={emailRejex} value={newEmails} onChange={(emails)=> setNewEmails(emails)} />
+                                            <TagsInput onlyUnique={true} validationRegex={emailRejex} value={newEmails} onChange={(emails)=> setNewEmails(emails)} className="my-link-22"/>
                                             </div>
                                         </div>
                                         {/* <div className="multiple-val-input ps-sm-4 ps-2">
