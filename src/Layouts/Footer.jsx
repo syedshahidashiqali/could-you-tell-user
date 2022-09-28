@@ -1,3 +1,6 @@
+import {Link} from "react-router-dom";
+import routes from "../routes/routes";
+
 export default function Footer(){
     return (
         <>
@@ -27,21 +30,21 @@ export default function Footer(){
                     <div className="mb-xl-4 mb-5 col-xl-3 col-lg-4 col-md-6 ml-3">
                     <h3 className="footer-heading mb-lg-4 mb-2">Quick Links</h3>
                     <ul className="ms-4">
-                        <li><a className="footer-link" href="index.php">Home</a></li>
-                        <li><a className="footer-link" href="about.php">About Us</a></li>
-                        <li><a className="footer-link" href="contact.php">Contact Us</a></li>
-                        <li><a className="footer-link" href="shop.php">Shop</a></li>
-                        <li><a className="footer-link" href="stories-listing-categories.php">Stories</a></li>
-                        <li><a className="footer-link" href="upload-story-textual.php">Upload Stories</a></li>
+                        <li><Link to={routes.home} className="footer-link">Home</Link></li>
+                        <li><Link to={routes.about} className="footer-link">About Us</Link></li>
+                        <li><Link to={routes.contact} className="footer-link">Contact Us</Link></li>
+                        <li><Link to={"/shop"} className="footer-link">Shop</Link></li>
+                        <li><Link to={"/stories"} className="footer-link">Stories</Link></li>
+                        <li><Link to={routes.uploadStories} className="footer-link">Upload Stories</Link></li>
                     </ul>
                     </div>
                     {/* USEFUL LINKS */}
                     <div className="mb-xl-4 mb-5 col-xl-3 col-lg-4 col-md-6">
                     <h3 className="footer-heading mb-lg-4 mb-2">Useful Links</h3>
                     <ul className="ms-4">
-                        <li><a className="footer-link" href="terms-and-condition.php">Terms &amp; Conditions</a></li>
-                        <li><a className="footer-link" href="faqs.php">FAQs</a></li>
-                        <li><a className="footer-link" href="privacy.php">Privacy Policy</a></li>
+                        <li><Link to={``} className="footer-link">Terms &amp; Conditions</Link></li>
+                        <li><Link to={``} className="footer-link">FAQs</Link></li>
+                        <li><Link to={``} className="footer-link">Privacy Policy</Link></li>
                     </ul>
                     </div>
                     {/* DOWNLOAD APP  */}
