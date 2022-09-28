@@ -3009,3 +3009,23 @@ ul.text-list {
 }
 /* FAQS Accordion ends */
 
+/* 
+background-color: #3c3c3c;
+    border: 1px solid #3c3c3c;
+    padding: 15px 25px;
+    color: #9a9a9a;
+    font-size: calc(12px + (18 - 12) * ((100vw - 300px) / (1920 - 300)));
+    font-weight: 300 !important;
+    border-radius: 1px;
+*/
+
+.PhoneInputInput{
+    background-color: #3c3c3c;
+    border: 1px solid #3c3c3c;
+    /* padding: 15px 25px; */
+    color: #9a9a9a;
+    font-size: calc(12px + (18 - 12) * ((100vw - 300px) / (1920 - 300)));
+    font-weight: 300 !important;
+    border-radius: 1px;
+    outline: none;
+}

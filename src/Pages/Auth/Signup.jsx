@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Validator from "validatorjs";
 import Validation from "../../Hooks/useValidation";
 import { register } from "../../Services/Auth";
-
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 export default function Signup() {
     const navigate = useNavigate();    
     const [validation,setValidation] = useState({});
@@ -62,7 +63,15 @@ export default function Signup() {
                 {/* Phone Number*/}
                 <div className="form-group mb-4">
                     <label className="ps-md-4" htmlFor="signupNumber">Phone Number <span className="red">*</span></label>
-                    <input type="tel" name="phone" value={form.phone} onChange={(e)=> form.current.phone = e.target.value} className="form-control mt-2 form-field" id="signupNumber" placeholder="Enter Phone Number" />
+                    {/* <input type="tel" name="phone" value={form.phone} onChange={(e)=> form.current.phone = e.target.value} pattern="[+]{1}[0-9]{11,14}" className="form-control mt-2 form-field" id="signupNumber" placeholder="Enter Phone Number" /> */}
+                    <PhoneInput
+                        className="form-control mt-2 form-field" 
+                        id="signupNumber" 
+                        placeholder="Enter Phone Number"
+                        value={form.phone}
+                        country={"US"}
+                        onChange={(e)=> form.current.phone = e}
+                        />
                     <span>{validation?.errors?.first('phone')}</span>
                 </div>
                 <div className="row justify-content-between align-items-center">
