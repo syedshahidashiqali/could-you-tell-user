@@ -1,6 +1,6 @@
 import { reverse } from 'named-urls';
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { useLocation, useMatch, useNavigate, useParams, createSearchParams } from 'react-router-dom';
+import { useLocation, useMatch, useNavigate, useParams, createSearchParams, Link } from 'react-router-dom';
 import Validator from 'validatorjs';
 import routes from '../../routes/routes';
 import { eventCategory, storeEvent } from '../../Services/Categories';
@@ -97,7 +97,7 @@ export default function Booking() {
                                 </div>
                                 <h3 className="heading-lvl-three mb-2">Want to purchase subscription?</h3>
                                 <div className="d-flex mb-3">
-                                    <a href="subscription-plans.php" className="green-link media-link">View subscription plans</a>
+                                    <Link to={routes.subscriptions} className="green-link media-link">View subscription plans</Link>
                                 </div>
                                 <button type='submit' className="gold-btn-solid d-inline-block my-4 eq-width-btn me-3 text-center">Proceed</button>
                                 <a href="host-event.php" className="grey-btn-outline d-inline-block my-4 eq-width-btn text-center">Back</a>
