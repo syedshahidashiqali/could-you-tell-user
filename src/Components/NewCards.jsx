@@ -34,7 +34,9 @@ function NewCard({setCard,showBackBtn,tag : Tag,showSubmitBtn,children}) {
             let {card,status} = await storeCard({...formData});
             if(status){
                 dispatch(pushSavedCardInfo(card));
-                await setCard(card.cardId);
+                setCard(card.cardId);
+                notification("card created successfully");
+                navigate(routes.subscriptions)
             }
         } catch (error) {
                 notification(error?.message,'error');
