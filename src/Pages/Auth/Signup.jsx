@@ -22,6 +22,7 @@ export default function Signup() {
         const validator = new Validator(form.current,{
             email : 'required',
             password : 'required|confirmed',
+            password_confirmation : 'required',
             name : 'required',
             phone : 'required',
         });
@@ -94,6 +95,7 @@ export default function Signup() {
                         <input type="password" value={form.password_confirmation} onChange={(e)=> form.current.password_confirmation = e.target.value} className="form-control mt-2 form-field signupPasswordConfirm" id="signupPasswordConfirm" placeholder="Confirm Password" />
                         <i className="fa fa-eye-slash signupPassConfirm" />
                         </div>
+                        <span>{validation?.errors?.first('password_confirmation')}</span>
                     </div>
                     </div>
                 </div>
