@@ -26,6 +26,7 @@ export default function ChangePassword() {
         let validator = new Validator(formData, {
             current_password: 'required',
             password: 'required|confirmed',
+            password_confirmation: 'required',
         });
         setValidation(validator);
         if (validator.fails()) return;
