@@ -5,7 +5,9 @@ import Validator from "validatorjs";
 import useFileReader from "../../Hooks/useFileReader";
 import useMessagePopup from "../../Hooks/useMessagePopup";
 import routes from "../../routes/routes";
-import { updateAccount } from "../../Services/Auth";
+import { getUser, updateAccount } from "../../Services/Auth";
+import { useDispatch } from 'react-redux';
+import { setAuthUser } from "../../store/actions";
 
 export default function EditAccount() {
     const [validation, setValidation] = useState({});
@@ -19,6 +21,7 @@ export default function EditAccount() {
         phone: '',
         file: '',
     });
+    const dispatch = useDispatch(); 
     useEffect(() => {
         if (user) {
             setFormData({
@@ -46,6 +49,8 @@ export default function EditAccount() {
                 successPopup({
                     message,
                 });
+                let { user }  = await getUser();
+                dispatch(setAuthUser(user));
                 navigate(routes.account);
             }
         } catch (error) {
