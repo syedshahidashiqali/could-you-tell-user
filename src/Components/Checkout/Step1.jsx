@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import useMessagePopup from '../../Hooks/useMessagePopup';
 import useStepForm from '../../Hooks/useStepForm'
 import { getCountries } from '../../Services/General';
 import AddressCard from '../AddressCard';
@@ -32,6 +33,7 @@ export default function CheckoutStep1(props) {
         onUpdate(formData);
     },[formData]);
 
+    let {errorPopup} =  useMessagePopup();
     return (
         <>
             <AddressCard                 
@@ -71,6 +73,7 @@ export default function CheckoutStep1(props) {
                                     tag='div'
                                     showBackBtn={false}
                                     setCard={(value) => setFormData({...formData,card : value})}
+                                    isCheckout
                                 ></NewCard>
                                 :
                                 <SavedCards selected={formData?.card} cardClass="card mt-2" setCard={(value) => setFormData({...formData,card : value})}></SavedCards>
@@ -79,8 +82,21 @@ export default function CheckoutStep1(props) {
                 </div>
             </div>
             <div className="col-12">
-                <a onClick={()=> changeStep()} className="cursor gold-btn-solid d-inline-block text-center eq-width-btn me-3 px-4">Continue</a>
+                <a onClick={()=>{
+                    if(formData.card && formData.billing.email) {
+                        console.log("lolololo",formData)
+                        changeStep()
+                        return
+                    }
+
+                    errorPopup({message: "Please fill all the required fields"})
+                } } className="cursor gold-btn-solid d-inline-block text-center eq-width-btn me-3 px-4">Continue</a>
             </div>
         </>
     )
 }
+
+
+// formData.shipping.state &&
+//                         formData.shipping.card &&
+//                         formData.shipping.billing.state

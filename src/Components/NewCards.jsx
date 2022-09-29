@@ -9,7 +9,7 @@ import { storeCard } from '../Services/Card';
 import { pushSavedCardInfo } from '../store/actions';
 import { notification } from '../Util/helpers';
 
-function NewCard({setCard,showBackBtn,tag : Tag,showSubmitBtn,children}) {
+function NewCard({setCard,showBackBtn,tag : Tag,showSubmitBtn,children, isCheckout}) {
     const [validation, setValidation] = useState(null)
     const {cardNumberFilter,updateFormData,formData,cardExpiryFilter} = useCardFormatter();
     const dispatch = useDispatch();
@@ -36,7 +36,7 @@ function NewCard({setCard,showBackBtn,tag : Tag,showSubmitBtn,children}) {
                 dispatch(pushSavedCardInfo(card));
                 setCard(card.cardId);
                 notification("card created successfully");
-                navigate(routes.subscriptions)
+                !isCheckout && navigate(routes.subscriptions)
             }
         } catch (error) {
                 notification(error?.message,'error');
@@ -101,5 +101,6 @@ NewCard.defaultProps = {
     showBackBtn : false,
     tag : 'form',
     showSubmitBtn : true,
+    isCheckout: false,
 };
 export default NewCard;
