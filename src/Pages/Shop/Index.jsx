@@ -8,18 +8,41 @@ import { Link } from 'react-router-dom';
 import { reverse } from 'named-urls';
 import routes from '../../routes/routes';
 import useURL from '../../Hooks/useURL';
-
+import { getProducts, updateWishlist } from '../../Services/Products';
+import { image_url } from '../../Util/connection_strings';
 export default function ShopMainPage() {
     const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
     let {generateQueryLink} = useURL();
     const fetchPopularCategories = async () => {
         let data = await getCategories();
         setCategories(data);
     };
+
+    const fetchProducts = async () => {
+        let data = await getProducts({limit:4});
+        setProducts(data);
+    };
+
+    
     useEffect(() => {
         fetchPopularCategories();
+        fetchProducts();
     }, []);
 
+    const toggleWishlist = async (productId,productIndex)=> {
+        try {
+            
+            let data = await updateWishlist(productId);
+            let productData = products.data;
+            productData[productIndex].isWishlist = !productData[productIndex].isWishlist;
+            productData = [...productData];
+            setProducts({...products,data : productData});
+            
+        } catch (error) {
+            console.log(error);
+        }
+};
     return (
         <div>
             <section className="shop-banner">
@@ -68,66 +91,31 @@ export default function ShopMainPage() {
                     </div>
                 </div>
                 <div className="row align-items-start pb-5">
-                    <div className="col-xl-3 col-lg-4 col-sm-6 col-11 mx-auto mb-4">
-                        <div className="product-card">
-                            <button type="button" className="wishlist-btn"><i className="fas fa-heart toggle-wishlist" /></button>
-                            <img src="images/product-1.jpg" alt="" className="img-fluid" />
-                            <a href="product-detail-instock.php" className="product-name pt-2">Crop Hoodie</a>
-                            <ul className="list-inline my-1" id="rating">
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star-half-alt" /></li>
-                                <li className="list-inline-item me-0"><i className="far fa-star" /></li>
-                            </ul>
-                            <p className="product-price-range">$42.00 – $44.00</p>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-sm-6 col-11 mx-auto mb-4">
-                        <div className="product-card">
-                            <button type="button" className="wishlist-btn"><i className="fas fa-heart toggle-wishlist" /></button>
-                            <img src="images/product-2.jpg" alt="" className="img-fluid" />
-                            <a href="product-detail-instock.php" className="product-name pt-2">Unisex Long Sleeve Tee</a>
-                            <ul className="list-inline my-1" id="rating">
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star-half-alt" /></li>
-                                <li className="list-inline-item me-0"><i className="far fa-star" /></li>
-                            </ul>
-                            <p className="product-price-range">$42.00 – $44.00</p>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-sm-6 col-11 mx-auto mb-4">
-                        <div className="product-card">
-                            <button type="button" className="wishlist-btn"><i className="fas fa-heart toggle-wishlist" /></button>
-                            <img src="images/product-3.jpg" alt="" className="img-fluid" />
-                            <a href="product-detail-instock.php" className="product-name pt-2">Champion Tie-Dye Hoodie</a>
-                            <ul className="list-inline my-1" id="rating">
-                                <li className="list-inline-item me-0 me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star-half-alt" /></li>
-                                <li className="list-inline-item me-0"><i className="far fa-star" /></li>
-                            </ul>
-                            <p className="product-price-range">$42.00 – $44.00</p>
-                        </div>
-                    </div>
-                    <div className="col-xl-3 col-lg-4 col-sm-6 col-11 mx-auto mb-4">
-                        <div className="product-card">
-                            <button type="button" className="wishlist-btn"><i className="fas fa-heart toggle-wishlist" /></button>
-                            <img src="images/product-4.jpg" alt="" className="img-fluid" />
-                            <a href="product-detail-instock.php" className="product-name pt-2">Pastel Baseball Hat</a>
-                            <ul className="list-inline my-1" id="rating">
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
-                                <li className="list-inline-item me-0"><i className="fas fa-star-half-alt" /></li>
-                                <li className="list-inline-item me-0"><i className="far fa-star" /></li>
-                            </ul>
-                            <p className="product-price-range">$42.00 – $44.00</p>
-                        </div>
-                    </div>
+                    {
+                        products?.data?.map((product,index) => (
+                            <div className="col-xl-3 col-lg-4 col-sm-6 col-11 mx-auto mb-4" key={index}>
+                                <div className="product-card">
+                                    <button type="button" onClick={() => toggleWishlist(product?._id, index)} className="wishlist-btn">
+                                        {product?.isWishlist ? (
+                                            <i className="fas fa-heart toggle-wishlist" />
+                                        ): (
+                                            <i className="fa-heart  far toggle-wishlist" />
+                                        )}
+                                    </button>
+                                    <img src={`${image_url}${product?.images[0]}`} alt="" className="img-fluid" />
+                                    <Link to={reverse(`${routes.shop.index}/${routes.shop.productDetail}`,{id : product._id})} className="product-name pt-2">{product?.name}</Link>
+                                    <ul className="list-inline my-1" id="rating">
+                                        <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
+                                        <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
+                                        <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
+                                        <li className="list-inline-item me-0"><i className="fas fa-star-half-alt" /></li>
+                                        <li className="list-inline-item me-0"><i className="far fa-star" /></li>
+                                    </ul>
+                                    <p className="product-price-range">${product?.price}</p>
+                                </div>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
