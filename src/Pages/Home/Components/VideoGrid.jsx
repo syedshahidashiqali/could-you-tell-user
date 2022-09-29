@@ -23,7 +23,8 @@ function VideoGrid({title, link,items}) {
             <div key={index} className="col-xl-3 col-md-6 col-11 mx-auto">
             <div className="video-box">
                 <img crossOrigin='anonymous' src={asset(item.cover_image)} alt="" />
-                <Link to={reverse(`${routes.stories.index}/${routes.stories?.detail}`,{ category : item?.category})} className="video-detail-link text-white"><i className="fas fa-play" /></Link>
+                {/* <Link to={reverse(`${routes.stories.index}/${routes.stories?.detail}`,{ category : item?.category})} className="video-detail-link text-white"><i className="fas fa-play" /></Link> */}
+                <Link to={reverse(`${routes.stories.index}/${routes.stories?.detail}`,{ category : item?.category, type: item?.story_type.toLowerCase(), id: item?._id})} className="video-detail-link text-white"><i className="fas fa-play" /></Link>
                 <div className="video-overlay" />
             </div>
             <a className="video-title d-block" href="video-story-listing.php">{item.title}</a> 
