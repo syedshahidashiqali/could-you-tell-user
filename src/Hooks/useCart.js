@@ -74,7 +74,7 @@ function useCart() {
     const getVariation = (attributes,defaultPrice = 0)=> {
         let variation = (attributes.length > 0) 
         ?
-          (attributes[0]?.value?.price || 0)
+          (attributes[0]?.value?.price + attributes[1]?.value?.price|| 0)
         : defaultPrice;
         // console.log(variation,attributes);
         return parseInt(variation || defaultPrice);
