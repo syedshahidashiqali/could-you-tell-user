@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function CardInfo({card}) {
+function CardInfo({card, onChange}) {
     return (
         <div className="dark-grey-bg p-4 mb-5">
             <div className="row justify-content-between">
@@ -15,7 +15,7 @@ function CardInfo({card}) {
                     </ul>
                 </div>
                 <div className="col-md-3 mb-3 text-end order-1 order-md-2">
-                    <a href="#" className="green-link font-weight-lighter">Change</a>
+                    <a onClick={() => onChange()} className="green-link font-weight-lighter">Change</a>
                 </div>
             </div>
         </div>

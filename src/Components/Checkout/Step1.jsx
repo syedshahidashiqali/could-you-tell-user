@@ -82,7 +82,7 @@ export default function CheckoutStep1(props) {
                 </div>
             </div>
             <div className="col-12">
-                <a onClick={()=>{
+                <button onClick={()=>{
                     if(formData.card && formData.billing.email) {
                         console.log("lolololo",formData)
                         changeStep()
@@ -90,7 +90,7 @@ export default function CheckoutStep1(props) {
                     }
 
                     errorPopup({message: "Please fill all the required fields"})
-                } } className="cursor gold-btn-solid d-inline-block text-center eq-width-btn me-3 px-4">Continue</a>
+                } } disabled={!formData.card} style={{ cursor: !formData.card ? "not-allowed": "pointer" }} className="cursor gold-btn-solid d-inline-block text-center eq-width-btn me-3 px-4">Continue</button>
             </div>
         </>
     )

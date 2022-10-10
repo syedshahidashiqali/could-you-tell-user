@@ -57,6 +57,9 @@ import Contact from "../Pages/Contact/Contact";
 import EditRoom from "../Pages/Events/Room/Edit";
 import AttendEvent from "../Pages/Events/Attend";
 import EventInvite from "../Pages/Events/EventInvite";
+import TermsAndCondition from "../Pages/TermsAndCondition/Index";
+import Faqs from "../Pages/Faqs/Index";
+import PrivacyAndPolicy from "../Pages/PrivacyAndPolicy/Index";
 
 export default function Router(){
     const match = useMatch(window.location.pathname);
@@ -66,6 +69,9 @@ export default function Router(){
                 
                 <Route path={route.home} exact element={<Home />} />
                 <Route path={route.about} exact element={<About />} />
+                <Route path={route.terms} exact element={<TermsAndCondition />} />
+                <Route path={route.faqs} exact element={<Faqs />} />
+                <Route path={route.privacy} exact element={<PrivacyAndPolicy />} />
                 
                 <Route path={route.signup} exact element={<AuthGuard><Signup /></AuthGuard>} />
                 <Route path={route.login} exact element={

@@ -17,7 +17,7 @@ export default function Signup() {
     });
     // form validation 
     
-    const submit = useCallback((e) => {
+    const submit = useCallback(async(e) => {
         e.preventDefault();
         const validator = new Validator(form.current,{
             email : 'required',
@@ -30,7 +30,7 @@ export default function Signup() {
        setValidation(validator);
       if(validator.fails()) return;
 
-        let {data} = register({...form.current});
+        let data = await register({...form.current});
         if(data.status){
             navigate('/login');
         }

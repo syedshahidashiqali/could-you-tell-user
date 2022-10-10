@@ -9,44 +9,45 @@ const {
     SET_CART_ITEMS,
     SET_COUNTRIES,
     UPDATE_CONFIRM_POPUP } = actions;
-const reducer =  (state = initialState,action)=>{
-    let {type,payload} = action; 
+const reducer = (state = initialState, action) => {
+    let { type, payload } = action;
     switch (type) {
         case SET_AUTH_USER:
-            state = {...state,user : payload || null}  
+            state = { ...state, user: payload || null }
             return state;
         case SET_AUTH_STATUS:
-            state = {...state, isLoggedIn : payload}  
+            state = { ...state, isLoggedIn: payload }
             return state;
         case ADD_SAVED_CARD:
             let user = state.user;
-            user = {...user,saved_cards : [...user.saved_cards,payload]};
-            return {...state,...user};
+            user = { ...user, saved_cards: [...user.saved_cards, payload] };
+            return { ...state, ...user };
         case UPDATE_SUCCESS_POPUP:
             return {
-                ...state, 
-                successPopup : payload.successPopup,
-                success_popup_params : payload.success_popup_params
+                ...state,
+                successPopup: payload.successPopup,
+                success_popup_params: payload.success_popup_params
             };
         case UPDATE_CONFIRM_POPUP:
-            let data = {...state.confirm_popup_params,...payload}
+            let data = { ...state.confirm_popup_params, ...payload }
             return {
-                ...state, 
-                confirm_popup_params : data
+                ...state,
+                confirm_popup_params: data
             };
-        case DELETE_SAVED_CARD: 
-            let {saved_cards} = state.user;
+        case DELETE_SAVED_CARD:
+            let { saved_cards } = state.user;
             saved_cards = [...saved_cards];
-            let savedCardIndex = saved_cards.findIndex((item)=> item._id === payload);
-            saved_cards.splice(savedCardIndex,1);
-            return {...state,user : {...state.user, saved_cards}}
-        case SET_CART_ITEMS:                    
-            return {...state,cartItems : payload};
-        case SET_COUNTRIES:                    
-            return {...state,countries : payload};
+            let savedCardIndex = saved_cards.findIndex((item) => item._id === payload);
+            saved_cards.splice(savedCardIndex, 1);
+            return { ...state, user: { ...state.user, saved_cards } }
+        case SET_CART_ITEMS:
+            const tempState = { ...state, cartItems: payload }
+            return tempState;
+        case SET_COUNTRIES:
+            return { ...state, countries: payload };
         default:
-           return state;
-     }
+            return state;
+    }
 }
 
 

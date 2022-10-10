@@ -18,7 +18,7 @@ function CheckoutStep3(props) {
                         </ul>
                     </div>
                     <div className="col-md-3 mb-3 text-end order-1 order-md-2">
-                        <a href="#" className="green-link font-weight-lighter">Change</a>
+                        <a href="" className="green-link font-weight-lighter">Change</a>
                     </div>
                 </div>
             </div>

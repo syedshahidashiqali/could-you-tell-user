@@ -10,7 +10,7 @@ export default function CartItems() {
     let {confirmPopup} = useMessagePopup();
     const onDeleteCartItem = (itemIndex)=> {
         confirmPopup({
-            message : 'Are you sure? do you want to remote this item',
+            message : 'Are you sure? do you want to remove this item',
             onConfirm : ()=> deleteCartItem(itemIndex),
         })
     };

@@ -118,7 +118,13 @@ function AddressCard({heading,type,onUpdate,formFields}) {
                     <div className="col-12 mb-3">
                         <label className="mb-2 ps-4" htmlFor="PhoneNumber">Phone Number  <span className="red">*</span></label>
                         <div className="phone-number my-3">
-                            <input value={formFields?.phone} id="PhoneNumber" onChange={(e)=> onUpdate({phone : e.target.value})} type="number" className="form-control form-field" placeholder='0000000' />
+                            <input value={formFields?.phone} id="PhoneNumber" onChange={(e)=> { onUpdate({phone : e.target.value})}} type="number" className="form-control form-field" placeholder='0000000' 
+                                onKeyPress={(e) => {
+                                    if(e.key == "e") {
+                                        e.preventDefault()
+                                    }
+                                }}
+                                />
                         </div>
                     </div>
                     {/* Ship To a Different Address */}

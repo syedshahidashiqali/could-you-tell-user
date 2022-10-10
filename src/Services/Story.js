@@ -17,7 +17,8 @@ export const uploadStory = async (formData)=>{
 
 
 export const getStories = async (params)=> {
-    let {data} = await axios.get('/story/user/all',{params});
+    // let {data} = await axios.get('/story/user/all',{params});
+    let {data} = await axios.get('/story/user/all/my',{params});
     return data;
 };
 

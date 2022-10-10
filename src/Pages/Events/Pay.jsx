@@ -25,15 +25,17 @@ export default function Pay() {
         }
     },[]);
     const eventPayment = async (selectedCard) => {
-        console.log(selectedCard);
+        console.log("selected card is: ", selectedCard);
         await setFormData({ ...formData, card: selectedCard });
         try {
             let {event} = await storeEvent({ ...formData,event_category : id, });
-            navigate(reverse(routes.hostEventSendInvite,{id, eventId: event._id}));            
+            navigate(reverse(routes.hostEventSendInvite,{id, eventId: event._id}));
         } catch (error) {
             console.log(error);
         }
     }
+
+    console.log(formData)
     return (
         <section className="virtual-events text-white">
             <div className="container py-5">
@@ -78,7 +80,7 @@ export default function Pay() {
 
                         {
                             (isNewCard) ?
-                                <NewCard setCard={(value) => eventPayment(value)}></NewCard>
+                                <NewCard setCard={(value) => eventPayment(value)} isCheckout></NewCard>
                                 :
                                 <SavedCards cardClass="card mt-2" setCard={(value) => eventPayment(value)}></SavedCards>
                         }

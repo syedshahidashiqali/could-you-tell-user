@@ -37,7 +37,10 @@ function CheckoutStep2(props) {
                 onChange={()=> firstStep()}
             />
             {/* Pay With Options */}
-            <CardInfo card={cardInfo}/>
+            <CardInfo 
+            card={cardInfo} 
+            onChange={()=> firstStep()}
+            />
         </>
 
     )

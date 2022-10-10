@@ -27,7 +27,7 @@ function VideoGrid({title, link,items}) {
                 <Link to={reverse(`${routes.stories.index}/${routes.stories?.detail}`,{ category : item?.category, type: item?.story_type.toLowerCase(), id: item?._id})} className="video-detail-link text-white"><i className="fas fa-play" /></Link>
                 <div className="video-overlay" />
             </div>
-            <a className="video-title d-block" href="video-story-listing.php">{item.title}</a> 
+            <a className="video-title d-block">{item.title}</a> 
             </div>
         ))}
     </div>

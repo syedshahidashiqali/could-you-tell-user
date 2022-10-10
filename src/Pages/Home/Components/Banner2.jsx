@@ -1,4 +1,6 @@
 
+import {Link} from "react-router-dom";
+import routes from "../../../routes/routes";
 function Banner2() {
   return (
     <section className="virtual-events text-white">
@@ -14,7 +16,10 @@ function Banner2() {
                 took a galley of type and scrambled it to make a type specimen book.
                 </p>
                 <p className="mt-4">It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                <a href="#" className="gold-btn-solid d-inline-block mt-4" data-bs-toggle="modal" data-bs-target="#loginToHostEvent">Create Event</a>
+                <Link to={routes.hostEvents} className="gold-btn-solid d-inline-block mt-4" 
+                // data-bs-toggle="modal" 
+                // data-bs-target="#loginToHostEvent"
+                >Create Event</Link>
             </div>
             </div>
         </div>

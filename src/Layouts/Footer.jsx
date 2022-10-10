@@ -42,9 +42,9 @@ export default function Footer(){
                     <div className="mb-xl-4 mb-5 col-xl-3 col-lg-4 col-md-6">
                     <h3 className="footer-heading mb-lg-4 mb-2">Useful Links</h3>
                     <ul className="ms-4">
-                        <li><Link to={``} className="footer-link">Terms &amp; Conditions</Link></li>
-                        <li><Link to={``} className="footer-link">FAQs</Link></li>
-                        <li><Link to={``} className="footer-link">Privacy Policy</Link></li>
+                        <li><Link to={routes.terms} className="footer-link">Terms &amp; Conditions</Link></li>
+                        <li><Link to={routes.faqs} className="footer-link">FAQs</Link></li>
+                        <li><Link to={routes.privacy} className="footer-link">Privacy Policy</Link></li>
                     </ul>
                     </div>
                     {/* DOWNLOAD APP  */}

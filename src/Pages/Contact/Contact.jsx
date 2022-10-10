@@ -39,16 +39,23 @@ function Contact() {
             //     }
             // }
             if(validation.passes()){
+                let { message } = await contactUs({...formData});
                 setFormData({
                     name : "",
                     email : '',
                     message : '',
                 });
-            }
-            let { message } = await contactUs({...formData});
-            successPopup({
+                 successPopup({
                 message, 
             });
+            }else {
+                console.log("catch error");
+                if(formData.name === "" || formData.email === "" || formData.message === "") {
+                    return errorPopup({ message: "Please fill all the required fields." })
+                }
+            }
+            
+           
 
         }catch(error){
                 console.log("catch error",error);

@@ -13,7 +13,7 @@ export default function Account() {
       <div className="col-lg-6 col-md-7 col-sm-8 col-11 mx-auto text-start">
         <h1 className="heading-lvl-one mb-4">My Profile</h1>
         <div className="d-flex align-items-md-center align-items-start justify-content-start flex-column flex-md-row">
-          <img crossOrigin='anonymous' src={user?.user_image?user?.user_image:'images/user-avatar.png'} alt="" className="img-fluid rounded-circle w-25" />
+          <img crossOrigin='anonymous' src={!user?.user_image.includes("undefined")?user?.user_image:'images/user-avatar.png'} alt="" className="img-fluid rounded-circle w-25" />
           <p className="user-name ms-md-4 silver-text mt-3 mt-md-0">{user?.name}</p>
         </div>
         <div className="profile-details mt-4">

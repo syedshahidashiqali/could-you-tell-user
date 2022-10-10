@@ -38,6 +38,7 @@ export default function SubscriptionPayment() {
         try {
             let {data} = await subscribePackage({id, card : selectedCard});
             navigate(routes.subscriptions);
+            notification('package has been added to the subscription');
         } catch (error) {
             notification(error);
         }

@@ -30,6 +30,7 @@ export default function EditAccount() {
                 phone: user?.phone,
                 file: null,
             });
+            setFakePath(user?.user_image)
         }
     }, [user]);
     const { successPopup, errorPopup } = useMessagePopup();
