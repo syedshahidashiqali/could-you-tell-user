@@ -82,7 +82,7 @@ export default function EditAccount() {
                                 Edit Profile
                             </h1>
                             <div className="avatar-box">
-                                <img src={!fakePath?'images/user-avatar.png':fakePath} alt="" className="img-fluid rounded-avatar" />
+                                <img src={!fakePath?'images/user-avatar.png':fakePath} alt="" className="img-fluid rounded-avatar" crossOrigin="anonymous"/>
                                 <label htmlFor="uploadAvatar" className="upload-avatar">
                                     <i className="fas fa-camera text-white" />
                                 </label>

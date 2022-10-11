@@ -50,7 +50,7 @@ export default function ProfileMenu({user}) {
             <div className="position-relative d-none d-xl-block">
                 <button type="button" className="nav-link bg-transparent border-0 dropdown-toggle no-icon ms-0" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <div className="d-flex align-items-center">
-                        <img src={(!user?.user_image.includes("undefined") && user?.user_image) || "images/account-picture.svg"} alt="" className="img-fluid profile-icon" />
+                        <img crossOrigin="anonymous" src={(!user?.user_image.includes("undefined") && user?.user_image) || "images/account-picture.svg"} alt="" className="img-fluid profile-icon" />
                         <p className="ms-2 pt-2"> {user.name} <i className="fas fa-angle-down silver" /></p>
                     </div>
                 </button>
@@ -108,7 +108,7 @@ export default function ProfileMenu({user}) {
                     <div className="position-relative">
                         <button type="button" className="nav-link bg-transparent border-0 dropdown-toggle no-icon" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <div className="d-flex align-items-center">
-                                <img src={(!user?.user_image.includes("undefined") && user?.user_image) || "images/account-picture.svg"} alt="" className="img-fluid" />
+                                <img crossOrigin="anonymous" src={(!user?.user_image.includes("undefined") && user?.user_image) || "images/account-picture.svg"} alt="" className="img-fluid" />
                                 <p className="ms-2 pt-2"> {user.name}</p>
                             </div>
                         </button>

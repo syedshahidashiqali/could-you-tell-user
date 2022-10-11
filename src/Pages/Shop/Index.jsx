@@ -102,7 +102,7 @@ export default function ShopMainPage() {
                                             <i className="fa-heart  far toggle-wishlist" />
                                         )}
                                     </button>
-                                    <img src={`${image_url}${product?.images[0]}`} alt="" className="img-fluid" />
+                                    <img crossOrigin="anonymous" src={`${image_url}${product?.images[0]}`} alt="" className="img-fluid" />
                                     <Link to={reverse(`${routes.shop.index}/${routes.shop.productDetail}`,{id : product._id})} className="product-name pt-2">{product?.name}</Link>
                                     <ul className="list-inline my-1" id="rating">
                                         <li className="list-inline-item me-0"><i className="fas fa-star" /></li>
