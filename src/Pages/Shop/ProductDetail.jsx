@@ -117,7 +117,7 @@ export default function ProductDetail() {
           <p className="cost fs-20 mt-4">
             Price:{" "}
             <span className="fs-25" key={refreshPrice}>
-              ${getVariation(attributes, product?.price)}
+              ${getVariation(attributes, product?.price, quantity)}
             </span>
           </p>
           <button

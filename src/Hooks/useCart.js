@@ -84,13 +84,18 @@ function useCart() {
     updateStorage();
   };
 
-  const getVariation = (attributes, defaultPrice = 0) => {
+  const getVariation = (attributes = [], defaultPrice = 0, qty = 1) => {
+
+    console.log("attri", attributes, defaultPrice);
     let variation =
-      attributes.length > 0
-        ? attributes[0]?.value?.price || 0 + attributes[1]?.value?.price || 0
-        : defaultPrice;
+      attributes?.reduce((prev, cur, index) => {
+        console.log("prev:", prev);
+        console.log("curr:", cur);
+        console.log("index:", index);
+        return prev += cur?.value?.price
+      }, defaultPrice)
     // console.log(variation,attributes);
-    return parseInt(variation || defaultPrice);
+    return parseInt((variation * qty)) || defaultPrice;
   };
   return {
     deleteCartItem,

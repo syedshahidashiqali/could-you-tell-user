@@ -87,7 +87,7 @@ export default function ShopMainPage() {
                         <h2 className="fs-30 font-weight-light">Most Purchased Products</h2>
                     </div>
                     <div className="col-lg-1 col-sm-2 col-3 text-end">
-                        <a href="products.php" className="text-white">View All</a>
+                        <Link to={routes.shop.products} className="text-white">View All</Link>
                     </div>
                 </div>
                 <div className="row align-items-start pb-5">

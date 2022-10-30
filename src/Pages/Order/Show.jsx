@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import useCart from '../../Hooks/useCart';
 import routes from '../../routes/routes';
 import { getOrder } from '../../Services/Order';
-import { asset, format_date, getImage, joinText, notification } from '../../Util/helpers';
+import { asset, calculateOrderTotal, format_date, getImage, joinText, notification } from '../../Util/helpers';
 
 export default function OrderDetail() {
     const { order_id } = useParams();
@@ -123,7 +123,7 @@ export default function OrderDetail() {
                                         <p className="order-date text-white">{format_date(order?.createdAt, 'DD MMMM YYYY hh:mm A')}</p>
                                     </div>
                                     <div className="col-lg-6 col-6 mb-3 text-end">
-                                        <p className="order-total text-white">Total: ${order?.total}</p>
+                                        <p className="order-total text-white">Total: ${calculateOrderTotal(order?.products)}</p>
                                     </div>
                                     {/* WHITE CARDS FOR SHIPPING ADDRESS AND TOTAL SUMMARY */}
                                     <div className="col-lg-6 col-md-8 mx-auto mb-4">
@@ -180,7 +180,7 @@ export default function OrderDetail() {
                                                                     <p className="item-qty">Qty: {item?.qty}</p>
                                                                 </td>
                                                                 <td>
-                                                                    <p className="item-qty">Unit Price: ${getVariation(item?.product?.attributes,item?.price)}</p>
+                                                                    <p className="item-qty">Unit Price: ${getVariation(item?.product?.attributes, item?.price, item?.qty)}</p>
                                                                 </td>
                                                                 <td>
                                                                     <Link to={reverse(`${routes?.shop?.index}/${routes?.shop?.productDetail}`,{category : item?.product?.category,id : item?.productId})} className="text-white text-decoration-none">Details</Link>
@@ -201,7 +201,7 @@ export default function OrderDetail() {
                                                     <p className="font-weight-400">Sub Total ({order?.products?.length} Product)</p>
                                                 </div>
                                                 <div className="col-6 mb-5 text-end">
-                                                    <p className="font-bold">${order?.total}</p>
+                                                    <p className="font-bold">${calculateOrderTotal(order?.products)}</p>
                                                 </div>
                                             </div>
                                             <div className="row justify-content-between align-items-center">
@@ -209,7 +209,8 @@ export default function OrderDetail() {
                                                     <p className="font-weight-400">Total</p>
                                                 </div>
                                                 <div className="col-6 mb-5 text-end">
-                                                    <p className="font-bold">${order?.total}</p>
+                                                    {/* <p className="font-bold">${order?.total}</p> */}
+                                                    <p className="font-bold">${calculateOrderTotal(order?.products)}</p>
                                                 </div>
                                             </div>
                                         </div>

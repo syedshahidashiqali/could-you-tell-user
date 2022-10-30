@@ -24,6 +24,8 @@ function OrderIndex() {
     useEffect(() => {
         fetch();
     },[filterValues]);
+
+    console.log("28",orders)
     return (
         <section className="virtual-events text-white">
             {/* container starts */}

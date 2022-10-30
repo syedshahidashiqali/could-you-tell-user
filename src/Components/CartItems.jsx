@@ -71,10 +71,10 @@ export default function CartItems() {
                                             </td>
                                             {/* Status */}
                                             <td>
-                                                <p className="cost">Cost: <span>${getVariation(item?.attributes,item?.price)}</span></p>
+                                                <p className="cost">Cost: <span>${getVariation(item?.attributes,item?.price, item?.qty)}</span></p>
                                             </td>
                                             <td>
-                                                <a onClick={() => onDeleteCartItem(itemIndex)} href="#" className="text-white text-decoration-none"><i className="far fa-trash-alt red fa-2x" /></a>
+                                                <a onClick={() => onDeleteCartItem(itemIndex)} className="text-white text-decoration-none"><i className="far fa-trash-alt red fa-2x" /></a>
                                             </td>
                                         </tr>
                                     ))
